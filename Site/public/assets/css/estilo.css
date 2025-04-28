@@ -1,0 +1,162 @@
+/* Importa a fonte Epilogue */
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700&display=swap');
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fundo geral */
+body {
+    font-family: 'Epilogue', sans-serif;
+    background-color: #121212;
+    color: #f5f5f5;
+}
+
+/* Header */
+.header {
+    padding: 20px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.header-container {
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    padding: 10px 30px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.logo {
+    height: 45px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #f5f5f5;
+    font-weight: 600;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #cccccc;
+}
+
+.btn-entrar {
+    background-color: #f5f5f5;
+    border: 2px solid white;
+    color: #121212;
+    padding: 8px 20px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-entrar:hover {
+    background-color: transparent;
+    color: white;
+}
+
+/* Título e subtítulo acima da imagem */
+.hero-text {
+    margin-top: 120px;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.hero-text h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+.hero-text p {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #cccccc;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.8);
+}
+
+/* Imagem */
+.hero-image {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.hero-image img {
+    width: 90%;
+    height: 80vh;
+    max-width: 1200px;
+    border-radius: 20px;
+    object-fit: cover;
+    margin-bottom: 15vh;
+}
+
+.sobre-tema {
+    display: flex;
+    justify-content: center;   /* Centraliza o conteúdo */
+    align-items: flex-start;
+    margin-top: 50px;           /* Espaço entre a imagem principal e a seção */
+    padding: 0 20px;
+    max-width: 1200px;          /* Limita a largura máxima para não ultrapassar o header */
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .sobre-texto {
+    width: 60%;                 /* Aumenta a largura do texto para ocupar mais espaço */
+    padding-right: 20px;        /* Adiciona um pouco de espaço à direita do texto */
+  }
+  
+  .sobre-texto h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #ffffff;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+  }
+  
+  .sobre-texto p {
+    font-size: 1.2rem;
+    color: #cccccc;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+    line-height: 1.6;           /* Aumenta a altura da linha para o texto ficar mais espaçado */
+  }
+  
+  /* Estilo da imagem */
+  .sobre-imagem {
+    width: 35%;                 /* Ajusta a largura para a imagem */
+    display: flex;
+    justify-content: center;
+  }
+  
+  .sobre-imagem img {
+    height: 80vh;
+    width: 25vw;               /* Aumenta a altura da imagem, como solicitado */
+    object-fit: cover;
+    border-radius: 10px;
+    margin-top: -7vh;
+    margin-left: 4vw;
+  }
+  
+  
