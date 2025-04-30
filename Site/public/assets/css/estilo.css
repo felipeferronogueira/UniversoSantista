@@ -1,21 +1,17 @@
-/* Importa a fonte Epilogue */
 @import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700&display=swap');
 
-/* Reset básico */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Fundo geral */
 body {
     font-family: 'Epilogue', sans-serif;
     background-color: #121212;
     color: #f5f5f5;
 }
 
-/* Header */
 .header {
     padding: 20px 0;
     position: fixed;
@@ -53,6 +49,7 @@ body {
     font-weight: 600;
     font-size: 16px;
     transition: color 0.3s;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
 }
 
 .nav-links a:hover {
@@ -75,7 +72,6 @@ body {
     color: white;
 }
 
-/* Título e subtítulo acima da imagem */
 .hero-text {
     margin-top: 120px;
     text-align: center;
@@ -96,7 +92,6 @@ body {
     text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.8);
 }
 
-/* Imagem */
 .hero-image {
     display: flex;
     justify-content: center;
@@ -114,18 +109,18 @@ body {
 
 .sobre-tema {
     display: flex;
-    justify-content: center;   /* Centraliza o conteúdo */
+    justify-content: center;   
     align-items: flex-start;
-    margin-top: 50px;           /* Espaço entre a imagem principal e a seção */
+    margin-top: 50px;          
     padding: 0 20px;
-    max-width: 1200px;          /* Limita a largura máxima para não ultrapassar o header */
+    max-width: 1200px;          
     margin-left: auto;
     margin-right: auto;
   }
   
   .sobre-texto {
-    width: 60%;                 /* Aumenta a largura do texto para ocupar mais espaço */
-    padding-right: 20px;        /* Adiciona um pouco de espaço à direita do texto */
+    width: 60%;                 
+    padding-right: 20px;        
   }
   
   .sobre-texto h2 {
@@ -140,22 +135,21 @@ body {
     font-size: 1.2rem;
     color: #cccccc;
     text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
-    line-height: 1.6;           /* Aumenta a altura da linha para o texto ficar mais espaçado */
+    line-height: 1.6;           
   }
   
-  /* Estilo da imagem */
   .sobre-imagem {
-    width: 35%;                 /* Ajusta a largura para a imagem */
+    width: 35%;                
     display: flex;
     justify-content: center;
   }
   
   .sobre-imagem img {
     height: 80vh;
-    width: 25vw;               /* Aumenta a altura da imagem, como solicitado */
+    width: 25vw;               
     object-fit: cover;
     border-radius: 10px;
-    margin-top: -7vh;
+    margin-top: -3vh;
     margin-left: 4vw;
   }
   
