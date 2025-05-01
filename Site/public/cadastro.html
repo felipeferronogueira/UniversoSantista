@@ -2,211 +2,251 @@
 <html lang="pt-br">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>AquaTech | Cadastro</title>
-
-  <script src="./js/sessao.js"></script>
-
-  <link rel="stylesheet" href="./css/estilo.css" />
-  <link rel="icon" href="./assets/icon/favicon2.ico" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Universo Santista</title>
+    <link rel="stylesheet" href="./assets/css/login.css" />
 </head>
 
-<body onload="listar()">
-  <!--header inicio-->
-  <div class="header">
-    <div class="container">
-      <h1 class="titulo">AquaTech</h1>
-      <ul class="navbar">
-        <li>
-          <a href="index.html">Inicial</a>
-        </li>
-        <li>
-          <a href="simulador.html">Simulador</a>
-        </li>
-        <li>|</li>
-        <li>
-          <a href="login.html">Login</a>
-        </li>
-        <li class="agora">
-          <a href="#">Cadastro</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <!--header fim-->
+<body>
 
-  <div class="login">
-    <div class="alerta_erro">
-      <div class="card_erro" id="cardErro">
-        <span id="mensagem_erro"></span>
-      </div>
-    </div>
-    <div class="container">
-      <div class="card card-cadastro">
-        <h2>Bem-vindo!</h2>
-        <div class="formulario">
-          <!--
-                         Para inserir mais um campo, copie uma das inputs abaixo.
-                         Assim que inserir vá para o script abaixo.
-                     -->
-          <div class="campo">
-            <span>Código de ativação:</span>
-            <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
-          </div>
-          <div class="campo">
-            <span>Nome:</span>
-            <input id="nome_input" type="text" placeholder="Seu nome" />
-          </div>
-          <div class="campo">
-            <span>E-mail:</span>
-            <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
-          </div>
-          <div class="campo">
-            <span>Senha:</span>
-            <input id="senha_input" type="password" placeholder="******" />
-          </div>
-          <div class="campo">
-            <span>Confirmação da Senha:</span>
-            <input id="confirmacao_senha_input" type="password" placeholder="******" />
-          </div>
-          <button class="botao" onclick="cadastrar()">Cadastrar</button>
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html"><img src="./assets/imgs/Santos_logo.svg.png" alt="Logo Santos" class="logo"/></a>
+            <div class="nav-links">
+                <a href="#">Sobre o Tema</a>
+                <a href="#">Sobre Mim</a>
+                <a href="#">Sobre o Projeto</a>
+            </div>
+
+            <a href="cadastro.html"><button class="btn-entrar">Entrar</button></a>
         </div>
-        <div id="div_aguardar" class="loading-div">
-          <img src="./assets/circle-loading.gif" id="loading-gif" />
+    </header>
+
+    <main class="container-background">
+        <div class="left-black-panel" id="leftPanel">
+            <div class="login-box" id="loginBox">
+                <h2>Login</h2>
+                <input type="email" placeholder="Email" class="input-field">
+                <input type="password" placeholder="Senha" class="input-field">
+                <button class="btn-entrar-login" onclick="entrar()">Entrar</button>
+                <div class="msg" id="msg"></div>
+            </div>
         </div>
 
-        <div id="div_erros_login"></div>
-      </div>
-    </div>
-  </div>
+        <div class="text-voltar-login" id="textVoltarLogin">
+            <h2>Já possui login?</h2>
+            <button class="btn-login-voltar" id="btnVoltarLogin">Entrar</button>
+        </div>
 
-  <!--footer inicio-->
-  <div class="footer">
-    <div class="container">
-      <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
-      <span class="version">v1.0.0</span>
-    </div>
-  </div>
-  <!--footer fim-->
+        <div class="right-content" id="rightContent">
+            <div class="text-box" id="textBoxDefault">
+                <h2>Ainda não possui Login?</h2>
+                <button class="btn-cadastrar" id="btnCadastrar">Cadastrar</button>
+            </div>
+            <div class="cadastro-box" id="cadastroBox" style="display: none;">
+                <h2>Cadastre-se</h2>
+                <input type="text" placeholder="Nome" class="input-field" id="nome_input">
+                <input type="email" placeholder="Email" class="input-field" id="email_input">
+                <input type="password" placeholder="Senha" class="input-field" id="senha_input">
+                <input type="password" placeholder="Confirmar Senha" class="input-field" id="confirm_senha_input">
+                <button class="btn-entrar-login" id="btnVoltarLoginForm" onclick="cadastrar()">Cadastrar</button>
+                <div class="msg" id="msgErro"></div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const btnCadastrar = document.getElementById("btnCadastrar");
+        const btnVoltarLogin = document.getElementById("btnVoltarLogin");
+        const container = document.querySelector(".container-background");
+        const cadastroBox = document.getElementById("cadastroBox");
+        const textBoxDefault = document.getElementById("textBoxDefault");
+
+        const btnEntrar = document.querySelector(".btn-entrar-login");
+        const msg = document.getElementById("msg");
+
+        let tentativasRestantes = 3;
+
+        btnCadastrar.addEventListener("click", () => {
+            container.classList.add("modo-cadastro");
+
+            setTimeout(() => {
+                cadastroBox.style.display = "flex";
+                textBoxDefault.style.display = "none";
+            }, 300);
+        });
+
+        btnVoltarLogin.addEventListener("click", () => {
+            cadastroBox.style.display = "none";
+            container.classList.remove("modo-cadastro");
+
+            setTimeout(() => {
+                textBoxDefault.style.display = "flex";
+            }, 300);
+        });
+
+        function entrar() {
+            const email = document.querySelector('.login-box input[type="email"]').value;
+            const senha = document.querySelector('.login-box input[type="password"]').value;
+
+            if (tentativasRestantes <= 0) {
+                msg.innerHTML = "Acesso bloqueado. Tente novamente mais tarde.";
+                msg.style.color = "red";
+                return;
+            }
+
+            if (email === "pipeline@gmail.com" && senha === "123456") {
+                window.location.href = "./dashboard/dashHome.html";
+            } else {
+                tentativasRestantes--;
+
+                if (tentativasRestantes > 0) {
+                    msg.innerHTML = `Email ou senha incorretos! Você ainda tem ${tentativasRestantes} tentativa(s).`;
+                    msg.style.color = "red";
+                    msg.style.marginTop = "20px";
+                } else {
+                    msg.innerHTML = "Você errou 3 vezes. Acesso bloqueado.";
+                    btnEntrar.disabled = true;
+                    btnEntrar.style.opacity = "0.5";
+                    btnEntrar.style.cursor = "not-allowed";
+                }
+            }
+
+            if (emailVar == "" || senhaVar == "") {
+                msg.innerHTML = "Todos os campos em branco)";
+                return false;
+            }
+            else {
+                setInterval(sumirMensagem, 5000)
+            }
+
+            console.log("FORM LOGIN: ", emailVar);
+            console.log("FORM SENHA: ", senhaVar);
+
+            fetch("/usuarios/autenticar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    emailServer: email,
+                    senhaServer: senha
+                })
+            }).then(function (resposta) {
+                console.log("ESTOU NO THEN DO entrar()!")
+
+                if (resposta.ok) {
+                    console.log(resposta);
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                        sessionStorage.EMAIL_USUARIO = json.email;
+                        sessionStorage.NOME_USUARIO = json.nome;
+                        sessionStorage.ID_USUARIO = json.idUsuario;
+
+                        setTimeout(function () {
+                            window.location = "./dashboard/cards.html";
+                        }, 1000); // apenas para exibir o loading
+
+                    });
+
+                } else {
+
+                    console.log("Houve um erro ao tentar realizar o login!");
+
+                    resposta.text().then(texto => {
+                        console.error(texto);
+                    });
+                }
+
+            }).catch(function (erro) {
+                console.log(erro);
+            })
+
+            return false;
+        }
+
+        function cadastrar() {
+
+            var nomeVar = nome_input.value;
+            var emailVar = email_input.value;
+            var senhaVar = senha_input.value;
+            var confirmacaoSenhaVar = confirm_senha_input.value;
+
+            if (
+                nomeVar == "" ||
+                emailVar == "" ||
+                senhaVar == "" ||
+                confirmacaoSenhaVar == ""
+            ) {
+                msgErro.innerHTML = "Todos os campos em branco";
+                return false;
+            } else if(nomeVar.length <= 1){
+                msgErro.innerHTML = "O nome deve ser maior do que 1";
+                return false; 
+            } else if(senhaVar.length < 6){
+                msgErro.innerHTML = "A senha deve ser maior ou igual do que 6";
+                return false; 
+            } else if(emailVar.indexOf('@') < 1 || emailVar.indexOf('.') < 1){
+                msgErro.innerHTML = "O email deve conter ''.'' e '@'";
+                return false; 
+            } else if(senhaVar != confirmacaoSenhaVar){
+                msgErro.innerHTML = "As senhas não coincidem";
+                return false; 
+            }else {
+                setInterval(sumirMensagem, 5000);
+            }
+
+            // Enviando o valor da nova input
+            fetch("/usuarios/cadastrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    nomeServer: nomeVar,
+                    emailServer: emailVar,
+                    senhaServer: senhaVar
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+
+                        msgErro.style.color = "white";
+
+                        msgErro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+                        setTimeout(() => {
+                            cadastroBox.style.display = "none";
+                            container.classList.remove("modo-cadastro");
+
+                            setTimeout(() => {
+                                textBoxDefault.style.display = "flex";
+                            }, 300);
+                        }, "2000");
+
+                    } else {
+                        throw "Houve um erro ao tentar realizar o cadastro!";
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
+
+            return false;
+        }
+
+        function sumirMensagem() {
+            msgErro.style.display = "none";
+            msg.style.display = "none";
+        }
+
+    </script>
+
 </body>
 
 </html>
-
-<script>
-
-  // Array para armazenar empresas cadastradas para validação de código de ativação 
-  let listaEmpresasCadastradas = [];
-
-  function cadastrar() {
-    // aguardar();
-
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
-    var nomeVar = nome_input.value;
-    var emailVar = email_input.value;
-    var senhaVar = senha_input.value;
-    var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    var codigoVar = codigo_input.value;
-    var idEmpresaVincular
-
-    // Verificando se há algum campo em branco
-    if (
-      nomeVar == "" ||
-      emailVar == "" ||
-      senhaVar == "" ||
-      confirmacaoSenhaVar == "" ||
-      codigoVar == ""
-    ) {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
-
-      finalizarAguardar();
-      return false;
-    } else {
-      setInterval(sumirMensagem, 5000);
-    }
-
-    // Verificando se o código de ativação é de alguma empresa cadastrada
-    for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
-      if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
-        idEmpresaVincular = listaEmpresasCadastradas[i].id
-        console.log("Código de ativação válido.");
-        break;
-      } else {
-        cardErro.style.display = "block";
-        mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
-        finalizarAguardar();
-      }
-    }
-
-    // Enviando o valor da nova input
-    fetch("/usuarios/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
-        nomeServer: nomeVar,
-        emailServer: emailVar,
-        senhaServer: senhaVar,
-        idEmpresaVincularServer: idEmpresaVincular
-      }),
-    })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
-
-        if (resposta.ok) {
-          cardErro.style.display = "block";
-
-          mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-          setTimeout(() => {
-            window.location = "login.html";
-          }, "2000");
-
-          limparFormulario();
-          finalizarAguardar();
-        } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
-        }
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        finalizarAguardar();
-      });
-
-    return false;
-  }
-
-  // Listando empresas cadastradas 
-  function listar() {
-    fetch("/empresas/listar", {
-      method: "GET",
-    })
-      .then(function (resposta) {
-        resposta.json().then((empresas) => {
-          empresas.forEach((empresa) => {
-            listaEmpresasCadastradas.push(empresa);
-
-            console.log("listaEmpresasCadastradas")
-            console.log(listaEmpresasCadastradas[0].codigo_ativacao)
-          });
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-  }
-
-  function sumirMensagem() {
-    cardErro.style.display = "none";
-  }
-</script>

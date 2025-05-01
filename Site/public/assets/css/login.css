@@ -1,0 +1,395 @@
+/* ================================
+   IMPORTAÇÃO DE FONTES
+=================================*/
+
+/* Importa a fonte "Poppins" do Google Fonts com variações de peso de 100 até 900 */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100..900&display=swap');
+
+/* Importa a fonte "Epilogue" do Google Fonts com variações de peso de 100 até 900 */
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900&display=swap');
+
+/* ================================
+   RESET BÁSICO E TIPOGRAFIA
+=================================*/
+
+/* Define que todos os elementos terão margem e padding zerados, 
+   e que o tamanho total dos elementos será calculado com padding e borda inclusos */
+* {
+    margin: 0;                /* Remove a margem padrão dos elementos */
+    padding: 0;               /* Remove o espaçamento interno padrão dos elementos */
+    box-sizing: border-box;   /* Inclui padding e border dentro do width e height do elemento */
+}
+
+/* Estiliza o body da página */
+body {
+    background-color: #161616;         /* Cor de fundo escura para toda a página */
+    font-family: Arial, sans-serif;             /* Define a fonte principal do site como "Arial" e sans-serif    */
+    color: white;                      /* Define a cor do texto como branca */
+}
+
+/* ================================
+   HEADER FIXO
+=================================*/
+
+.header {
+    padding: 20px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.header-container {
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    padding: 10px 30px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.logo {
+    height: 45px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #f5f5f5;
+    font-weight: 600;
+    font-size: 16px;
+    transition: color 0.3s;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+}
+
+.nav-links a:hover {
+    color: #cccccc;
+}
+
+.btn-entrar {
+    background-color: #f5f5f5;
+    border: 2px solid white;
+    color: #121212;
+    padding: 8px 20px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+.btn-entrar:hover {
+    background-color: transparent;
+    color: white;
+}
+
+/* ================================
+   CONTAINER PRINCIPAL DE LOGIN/CADASTRO
+=================================*/
+
+.container-background {
+    width: 70vw;                                    /* Largura de 70% da viewport */
+    height: 75vh;                                   /* Altura de 75% da viewport */
+    margin: 17vh auto 0 auto;                       /* Espaço superior de 17vh e centralização horizontal */
+    background-image: url('../imgs/Teaser-Uniforme-2025.png'); /* Imagem de fundo */
+    background-size: cover;                         /* Faz a imagem preencher o espaço proporcionalmente */
+    background-position: center;                    /* Centraliza a imagem no container */
+    border-radius: 20px;                            /* Cantos arredondados */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);   /* Sombra leve */
+    display: flex;                                  /* Ativa flexbox para organizar o conteúdo */
+    align-items: stretch;                           /* Estica os filhos verticalmente */
+    position: relative;                             /* Posicionamento relativo para elementos filhos absolutos */
+    overflow: hidden;                               /* Esconde conteúdo que ultrapassar os limites */
+    transition: 0.6s ease-in-out;                   /* Transição suave ao alternar entre login/cadastro */
+}
+
+/* Camada escura semi-transparente por cima da imagem de fundo */
+.container-background::before {
+    content: "";                                    /* Cria um elemento vazio pseudo */
+    position: absolute;                             /* Posição absoluta dentro do container */
+    width: 100%;                                    /* Cobre toda a largura */
+    height: 100%;                                   /* Cobre toda a altura */
+    background: rgba(0, 0, 0, 0.233);             /* Fundo preto transparente */
+    pointer-events: none;                           /* Permite clique através do elemento */
+}
+
+/* ================================
+   PAINEL PRETO À ESQUERDA (LOGIN)
+=================================*/
+
+.left-black-panel {
+    font-family: "Epilogue";                        /* Define a fonte da área */
+    width: 50%;                                     /* Metade da largura do container */
+    height: 100%;                                   /* Altura total */
+    background-color: #000000ee;                  /* Fundo preto com opacidade */
+    border-top-left-radius: 20px;                   /* Canto superior esquerdo arredondado */
+    border-bottom-left-radius: 20px;                /* Canto inferior esquerdo arredondado */
+    display: flex;                                  /* Flexbox */
+    flex-direction: column;                         /* Coluna vertical */
+    justify-content: center;                        /* Centraliza verticalmente */
+    align-items: center;                            /* Centraliza horizontalmente */
+    position: absolute;                             /* Posição absoluta dentro do container */
+    z-index: 2;                                     /* Fica sobre o conteúdo da direita */
+    transition: transform 0.6s ease-in-out, background-color 0.6s ease-in-out; /* Transições suaves */
+}
+
+/* Container do formulário de login */
+.login-box {
+    display: flex;
+    flex-direction: column;                         /* Elementos em coluna */
+    align-items: center;                            /* Alinhamento horizontal ao centro */
+    gap: 1.2rem;                                    /* Espaçamento entre os elementos */
+    width: 80%;                                     /* Ocupa 80% da largura do painel */
+    transition: opacity 0.4s ease-in-out;           /* Transição suave da opacidade */
+    padding: 30px;                                  /* Espaçamento interno */
+    border-radius: 20px;                            /* Cantos arredondados */
+    opacity: 1;                                     /* Totalmente visível por padrão */
+}
+
+/* Título do login */
+.login-box h2 {
+    font-family: "Epilogue";
+    font-weight: 1000;                              /* Fonte bem pesada */
+    font-size: 2rem;                                /* Tamanho grande */
+    color: white;                                 /* Cor branca */
+    margin-bottom: 1rem;                            /* Espaço inferior */
+}
+
+/* Campos de input do formulário */
+.input-field, input {
+    width: 100%;                                    /* Ocupa 100% da largura do container pai */
+    height: 6vh;                                    /* Altura proporcional à viewport */
+    padding: 12px 20px;                             /* Espaço interno */
+    border-radius: 20px;                            /* Bordas arredondadas */
+    border: none;                                   /* Remove borda padrão */
+    outline: none;                                  /* Remove contorno ao focar */
+    font-size: 1rem;                                /* Tamanho do texto */
+    background-color: #222;                         /* Fundo escuro */
+    color: white;                                   /* Texto branco */
+    font-family: "Epilogue";                          /* Fonte personalizada */
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1); /* Sombra leve */
+    transition: 0.2s ease-in-out;                     /* Transição suave ao focar */
+}
+
+/* Quando o input está em foco */
+.input-field:focus, input:focus, .input-field:hover, input:hover {
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);    /* Aumenta a sombra branca */
+}
+
+
+/* Botão de login */
+.btn-entrar-login {
+    background-color: transparent;                  /* Fundo transparente */
+    border: 3px solid yellow;                     /* Borda amarela */
+    padding: 12px 30px;                             /* Espaçamento interno */
+    font-size: 1.05rem;                             /* Tamanho da fonte */
+    font-weight: 600;                               /* Peso médio */
+    color: white;                                 /* Cor do texto */
+    margin-top: 2vh;                                /* Espaço acima do botão */
+    border-radius: 10px;                            /* Bordas arredondadas */
+    font-family: "Epilogue";                        /* Fonte personalizada */
+    box-shadow: 0 5px 15px rgba(246, 197, 0, 0.4);/* Sombra amarelada */
+    cursor: pointer;                                /* Cursor de clique */
+    transition: 0.3s ease-in-out;                   /* Transição suave */
+    width: 100%;                                    /* Ocupa toda a largura disponível */
+}
+
+/* Hover do botão de login */
+.btn-entrar-login:hover {
+    color: black;                                   /* Muda a cor do texto para preto */
+    background-color: #ffd700;                      /* Fundo amarelo */
+    box-shadow: 0 8px 20px rgba(255, 217, 0, 0.7);  /* Sombra mais intensa */
+}
+
+.msg{
+    display: flex; 
+    justify-content: center; 
+    width: 40vw;
+    color: red;
+}
+
+/* ================================
+   PAINEL DIREITO (CADASTRO)
+=================================*/
+
+.right-content {
+    width: 50%;                                       /* Define a largura como 50% do container principal */
+    height: 100%;                                     /* Define a altura como 100% do container principal */
+    display: flex;                                    /* Ativa o modelo de layout flexbox */
+    align-items: center;                              /* Alinha os itens ao centro verticalmente */
+    justify-content: center;                          /* Alinha os itens ao centro horizontalmente */
+    position: absolute;                               /* Posiciona a div de forma absoluta dentro do container */
+    top: 0;                                           /* Alinha o topo da div ao topo do container */
+    right: 0;                                         /* Alinha a div à direita do container */
+    background-color: transparent;                    /* Define o fundo como transparente */
+    z-index: 1;                                       /* Define a ordem de empilhamento como 1 (atrás dos elementos com z-index maior) */
+    transition: background-color 0.6s ease-in-out;    /* Define uma transição suave na mudança da cor de fundo */
+}
+
+.text-box {
+    display: flex;                                    /* Ativa o modelo de layout flexbox */
+    flex-direction: column;                           /* Organiza os elementos em coluna (verticalmente) */
+    align-items: center;                              /* Centraliza os elementos horizontalmente */
+    gap: 1rem;                                        /* Define um espaçamento de 1rem entre os elementos */
+    text-align: center;                               /* Centraliza o texto */
+    transition: opacity 0.4s ease-in-out;             /* Cria uma transição suave de opacidade */
+}
+
+.text-box h2 {
+    font-family: "Epilogue";                          /* Define a fonte como Epilogue */
+    font-weight: 700;                                 /* Define o peso da fonte como 700 (negrito) */
+    font-size: 2rem;                                  /* Define o tamanho da fonte como 2rem */
+    color: white;                                   /* Define a cor do texto como branca */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);    /* Adiciona uma sombra no texto com cor preta semitransparente */
+    margin-bottom: 1rem;                              /* Define uma margem inferior de 1rem */
+}
+
+.text-box p {
+    font-family: "Epilogue";                          /* Define a fonte como Epilogue */
+    font-size: 0.95rem;                               /* Define o tamanho da fonte como 0.95rem */
+    color: #222;                                    /* Define a cor do texto como cinza escuro */
+}
+
+.btn-cadastrar {
+    background-color: black;                        /* Define a cor de fundo do botão como preta */
+    border: 3px solid yellow;                       /* Define uma borda amarela com 3px de espessura */
+    padding: 12px 30px;                               /* Define o preenchimento interno (12px vertical e 30px horizontal) */
+    font-size: 1rem;                                  /* Define o tamanho da fonte como 1rem */
+    font-weight: 600;                                 /* Define o peso da fonte como 600 (seminegrito) */
+    color: white;                                   /* Define a cor do texto como branca */
+    border-radius: 10px;                              /* Arredonda os cantos com raio de 10px */
+    font-family: "Epilogue";                          /* Define a fonte como Epilogue */
+    box-shadow: 0 5px 15px rgba(246, 197, 0, 0.4);  /* Adiciona uma sombra amarela suave ao botão */
+    cursor: pointer;                                  /* Altera o cursor para ponteiro ao passar sobre o botão */
+    transition: 0.3s ease-in-out;                     /* Cria uma transição suave em 0.3s para mudanças visuais */
+}
+
+.btn-cadastrar:hover {
+    background-color: #ffd700;                        /* Muda a cor de fundo para amarelo ao passar o mouse */
+    box-shadow: 0 8px 20px rgba(255, 217, 0, 0.7);    /* Aumenta a sombra e a intensidade da cor ao passar o mouse */
+    transform: translateY(-2px);                        /* Move o botão 2px para cima ao passar o mouse */
+    color: black;                                     /* Muda a cor do texto para preto */
+}
+
+/* ================================
+   MODO CADASTRO ATIVO
+=================================*/
+
+.container-background.modo-cadastro .left-black-panel {
+    transform: translateX(100%);                      /* Move o painel da esquerda 100% para a direita */
+    background-color: transparent;                    /* Deixa o fundo do painel transparente */
+    pointer-events: none;                             /* Desativa qualquer interação com esse painel */
+}
+
+.container-background.modo-cadastro #loginBox {
+    opacity: 0;                                       /* Torna o formulário de login invisível */
+    transition: opacity 0.4s ease-in-out;             /* Aplica uma transição suave de opacidade */
+}
+
+.container-background.modo-cadastro #textBoxDefault {
+    opacity: 0;                                       /* Torna o texto padrão invisível */
+    transition: opacity 0.4s ease-in-out;             /* Aplica uma transição suave de opacidade */
+}
+
+.container-background.modo-cadastro #cadastroBox {
+    display: flex;                                    /* Ativa o modelo flexbox */
+    flex-direction: column;                           /* Alinha os elementos verticalmente */
+    align-items: center;                              /* Centraliza os elementos horizontalmente */
+    gap: 1rem;                                        /* Adiciona um espaço entre os elementos */
+    width: 80%;                                       /* Define a largura como 80% do container pai */
+    padding: 30px;                                    /* Define um espaçamento interno de 30px */
+    border-radius: 20px;                              /* Arredonda os cantos com raio de 20px */
+    opacity: 1;                                       /* Torna o formulário visível */
+    animation: fadeIn 0.4s ease-in-out;               /* Aplica uma animação de entrada suave */
+}
+
+.container-background.modo-cadastro .right-content {
+    background-color: #000000ee;                    /* Define o fundo como preto com leve transparência */
+    z-index: 9999;                                    /* Garante que essa camada fique na frente de todas as outras */
+}
+
+.container-background.modo-cadastro #cadastroBox h2 {
+    color: white;                                   /* Define a cor do título como branca */
+    font-family: "Epilogue";                          /* Define a fonte como Epilogue */
+    font-size: 1.9rem;                                /* Define o tamanho da fonte como 1.9rem */
+    height: 6vh;                                      /* Define a altura como 6% da altura da tela visível */
+}
+
+.container-background.modo-cadastro #cadastroBox input {
+    background-color: #222;                           /* Define a cor de fundo dos inputs como cinza escuro */
+    color: white;                                     /* Define a cor do texto dos inputs como branca */
+    font-family: "Epilogue";                            /* Define a fonte dos inputs como Epilogue */
+}
+
+.container-background.modo-cadastro #cadastroBox input:hover {
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);      /* Adiciona uma leve sombra branca ao passar o mouse nos inputs */
+}
+
+/* ================================
+   TEXTO VOLTAR AO LOGIN (ESQUERDA)
+=================================*/
+
+.text-voltar-login {
+    position: absolute;                               /* Posiciona de forma absoluta dentro do container */
+    width: 50%;                                       /* Define a largura como 50% */
+    height: 100%;                                     /* Define a altura como 100% */
+    left: 0;                                          /* Alinha à esquerda */
+    top: 0;                                           /* Alinha ao topo */
+    display: none;                                    /* Esconde esse conteúdo inicialmente */
+    flex-direction: column;                           /* Alinha elementos em coluna */
+    align-items: center;                              /* Centraliza horizontalmente */
+    justify-content: center;                          /* Centraliza verticalmente */
+    gap: 1rem;                                        /* Espaçamento entre elementos */
+    text-align: center;                               /* Centraliza o texto */
+    z-index: 3;                                       /* Define ordem de empilhamento alta para sobrepor os outros */
+    transition: opacity 0.4s ease-in-out;             /* Transição suave de opacidade */
+    border-top-left-radius: 20px;                     /* Arredonda o canto superior esquerdo */
+    border-bottom-left-radius: 20px;                  /* Arredonda o canto inferior esquerdo */
+}
+
+.text-voltar-login h2 {
+    font-family: "Epilogue";                          /* Define a fonte como Epilogue */
+    font-weight: 700;                                 /* Define o peso da fonte como 700 (negrito) */
+    font-size: 2rem;                                  /* Define o tamanho da fonte como 2rem */
+    color: white;                                   /* Define a cor do texto como branca */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);    /* Adiciona uma sombra ao texto */
+}
+
+.text-voltar-login p {
+    font-family: "Epilogue";                          /* Define a fonte como Epilogue */
+    font-size: 0.95rem;                               /* Define o tamanho da fonte como 0.95rem */
+    color: #ddd;                                    /* Define a cor do texto como cinza claro */
+}
+
+.btn-login-voltar {
+    background-color: black;                        /* Define o fundo como preto */
+    border: 3px solid yellow;                       /* Adiciona uma borda amarela de 3px */
+    padding: 12px 30px;                               /* Define o espaçamento interno */
+    font-size: 1rem;                                  /* Define o tamanho da fonte como 1rem */
+    font-weight: 600;                                 /* Define o peso da fonte como 600 */
+    color: white;                                   /* Define a cor do texto como branca */
+    border-radius: 10px;                              /* Arredonda os cantos do botão */
+    font-family: "Epilogue";                          /* Define a fonte como Epilogue */
+    box-shadow: 0 5px 15px rgba(246, 197, 0, 0.4);  /* Adiciona uma sombra amarela suave */
+    cursor: pointer;                                  /* Altera o cursor para ponteiro ao passar o mouse */
+    transition: 0.3s ease-in-out;                     /* Transição suave de 0.3s */
+}
+
+.btn-login-voltar:hover {
+    background-color: #ffd700;                        /* Muda o fundo para amarelo ao passar o mouse */
+    box-shadow: 0 8px 20px rgba(255, 217, 0, 0.7);    /* Aumenta a sombra e o brilho do botão */
+    color: black;                                     /* Muda a cor do texto para preto */
+}
+
+.container-background.modo-cadastro #textVoltarLogin {
+    display: flex;                                    /* Mostra o conteúdo de "voltar ao login" quando o modo cadastro está ativo */
+}
