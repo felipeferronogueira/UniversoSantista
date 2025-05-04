@@ -3,14 +3,11 @@ var usuarioModel = require("../models/usuarioModel");
 function autenticar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-    var fkJogador = req.body.fkJogadorServer;
 
     if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está indefinida!");
-    }  else if (fkJogador == undefined) {
-        res.status(400).send("A fkJogador está indefinida!");
     }else {
 
         usuarioModel.autenticar(email, senha)

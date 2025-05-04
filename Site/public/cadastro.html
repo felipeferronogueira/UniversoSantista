@@ -93,7 +93,6 @@
         function entrar() {
             const email = document.querySelector('.login-box input[type="email"]').value;
             const senha = document.querySelector('.login-box input[type="password"]').value;
-            const fkJogador = select_jogador.value;
 
             if (tentativasRestantes <= 0) {
                 msg.innerHTML = "Acesso bloqueado. Tente novamente mais tarde.";
@@ -119,8 +118,7 @@
                 },
                 body: JSON.stringify({
                     emailServer: email,
-                    senhaServer: senha,
-                    fkJogadorServer: fkJogador
+                    senhaServer: senha
                 })
             }).then(function (resposta) {
                 console.log("ESTOU NO THEN DO entrar()!")
