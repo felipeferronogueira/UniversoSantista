@@ -6,6 +6,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}  
+
 body {
     font-family: 'Epilogue', sans-serif;
     background-color: #121212;
@@ -65,7 +69,6 @@ body {
     font-weight: 700;
     cursor: pointer;
     transition: all 0.3s;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
 }
 
 .btn-entrar:hover {
@@ -73,33 +76,33 @@ body {
     color: white;
 }
 
-.hero-text {
+.principal-texto {
     margin-top: 120px;
     text-align: center;
     padding: 0 20px;
 }
 
-.hero-text h1 {
+.principal-texto h1 {
     font-size: 3rem;
     font-weight: 700;
     margin-bottom: 10px;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
 }
 
-.hero-text p {
+.principal-texto p {
     font-size: 1.5rem;
     font-weight: 400;
     color: #cccccc;
     text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.8);
 }
 
-.hero-image {
+.neymar-image {
     display: flex;
     justify-content: center;
     margin-top: 30px;
 }
 
-.hero-image img {
+.neymar-image img {
     width: 90%;
     height: 80vh;
     max-width: 1200px;
@@ -117,6 +120,7 @@ body {
     max-width: 1200px;          
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 100px;
   }
   
   .sobre-texto {
@@ -137,6 +141,7 @@ body {
     color: #cccccc;
     text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
     line-height: 1.6;           
+    text-align: justify;
   }
   
   .sobre-imagem {
@@ -150,8 +155,113 @@ body {
     width: 25vw;               
     object-fit: cover;
     border-radius: 10px;
-    margin-top: -3vh;
+    margin-top: -2vh;
     margin-left: 4vw;
   }
   
+  .sobre-mim {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 80px;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sobre-imagem-mim {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sobre-imagem-mim img { 
+    height: 100vh;
+    width: 25vw;
+    border-radius: 10px;
+    margin-top: -3vh;
+}
+
+.sobre-texto-mim {
+    width: 60%;
+    padding-left: 30px;
+}
+
+.sobre-texto-mim h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #ffffff;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+    text-align: right;
+}
+
+.sobre-texto-mim p {
+    font-size: 1.2rem;
+    color: #cccccc;
+    line-height: 1.8;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+    text-align: justify; /* Justificação perfeita nas duas margens */
+}
+
+.sobre-projeto {
+    max-width: 1200px;
+    margin: 80px auto;
+    padding: 0 20px;
+}
+
+.sobre-projeto h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 40px;
+    text-align: center;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.cards-projeto {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    width: 25vw;
+    height: 75vh;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.03);
+}
+
+.card img {
+    width: 80px;
+    margin-bottom: 20px;
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #ffffff;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+}
+
+.card p {
+    font-size: 1rem;
+    color: #cccccc;
+    line-height: 1.6;
+    text-align: justify;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+}
+
+
+
   
