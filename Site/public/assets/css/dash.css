@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    height: 100%;
+    font-family: 'Epilogue', sans-serif;
+}
+
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Imagem de fundo */
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url('../imgs/FlK-Er2WIAU3TBW.jpg_large');
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.103);
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 1;
+    position: relative;
+    align-items: center;
+}
+
+.logo {
+    width: 7vw;
+    height: 15vh;
+    max-width: 180px;
+}
+
+.usuario {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+}
+
+/* Container dos botões: coluna com espaçamento entre eles */
+.sidebar-btns {
+    display: flex; /* coloca os botões em um layout flexível */
+    flex-direction: column; /* empilha verticalmente */
+    gap: 20px; /* espaçamento entre os botões */
+    align-items: stretch; /* faz os botões ocuparem toda a largura disponível */
+}
+
+/* Estilo base do botão */
+.btn {
+    width: 7vw; /* largura relativa à largura da tela */
+    min-width: 130px; /* largura mínima para manter legibilidade em telas pequenas */
+    height: 45px; /* altura fixa */
+    display: flex; /* usa flexbox para alinhar conteúdo dentro do botão */
+    align-items: center; /* centraliza verticalmente o texto e o ícone */
+    justify-content: center; /* centraliza horizontalmente */
+    gap: 8px; /* espaço entre texto e ícone */
+    background-color: rgb(255, 255, 255); /* fundo branco */
+    color: black; /* texto preto */
+    font-weight: 600; /* texto em negrito */
+    font-family: 'Epilogue', sans-serif; /* fonte principal do projeto */
+    border: none; /* remove bordas padrão */
+    cursor: pointer; /* muda o cursor ao passar por cima */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.103); /* sombra suave */
+    position: relative; /* necessário para o posicionamento do ::before */
+    overflow: hidden; /* esconde o pseudo-elemento(before) quando ele estiver fora */
+    transition-duration: 0.3s; /* suaviza a animação de clique */ 
+}
+
+/* Pseudo-elemento decorativo: cria o efeito de transição ao passar o mouse */
+.btn::before {
+    content: ""; /* conteúdo vazio, só serve para efeito visual */
+    position: absolute; /* posição absoluta em relação ao botão */
+    width: 130px; /* largura do círculo */
+    height: 130px; /* altura do círculo */
+    background-color: white; /* cor do círculo (branca) */
+    border-radius: 50%; /* faz o elemento virar um círculo */
+    left: -100%; /* começa completamente fora da esquerda do botão */
+    top: 0; /* alinhado ao topo */
+    transition-duration: 0.3s; /* tempo da transição de movimento */
+    mix-blend-mode: difference; /* inverte as cores onde o círculo passa */
+}
+
+/* Quando o mouse passa sobre o botão */
+.btn:hover::before {
+    transform: translate(100%, -50%); /* move o círculo para a direita e para cima */
+    border-radius: 0; /* remove o formato circular, virando um quadrado deformado */
+}
+
+/* Quando o botão é clicado */
+.btn:active {
+    transform: translate(5px, 5px); /* botão "afunda" levemente ao ser pressionado */
+    transition-duration: 0.3s; /* animação suave do clique */
+}
