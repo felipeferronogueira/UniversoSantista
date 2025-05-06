@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Santos 2011 - Escalação</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      /* Fundo preto */
+      color: #fff;
+      /* Texto branco */
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #FFD700;
+      /* Amarelo */
+    }
+
+    .campo {
+      position: relative;
+      width: 800px;
+      height: 400px;
+      background-color: #111;
+      /* Preto mais claro para diferenciar */
+      border: 2px solid #fff;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .linha {
+      display: flex;
+      justify-content: space-around;
+      gap: 30px;
+    }
+
+    .posicao {
+      border: 1px solid #fff;
+      padding: 8px 12px;
+      border-radius: 10px;
+      text-align: center;
+      min-width: 70px;
+      background-color: transparent;
+      font-size: 14px;
+      transition: background 0.3s;
+      color: #fff;
+    }
+
+    .posicao.preenchido {
+      background-color: #FFD700;
+      /* Fundo amarelo quando acertado */
+      color: #000;
+      /* Texto preto */
+      font-weight: bold;
+    }
+
+    .input-area {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #FFD700;
+      outline: none;
+      font-size: 14px;
+      width: 250px;
+      background-color: #fff;
+      color: #000;
+    }
+
+    button {
+      padding: 10px 15px;
+      background-color: #FFD700;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .mensagem-final {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #FFD700;
+      font-weight: bold;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Escale o Santos de 2011 (4-3-3)</h2>
+
+  <div class="campo">
+    <div class="linha">
+      <div class="posicao" data-pos="ST1">ST</div>
+      <div class="posicao" data-pos="ST2">ST</div>
+      <div class="posicao" data-pos="ST3">ST</div>
+    </div>
+    <div class="linha">
+      <div class="posicao" data-pos="CM1">CM</div>
+      <div class="posicao" data-pos="CM2">CM</div>
+      <div class="posicao" data-pos="CM3">CM</div>
+    </div>
+    <div class="linha">
+      <div class="posicao" data-pos="LB">LB</div>
+      <div class="posicao" data-pos="CB1">CB</div>
+      <div class="posicao" data-pos="CB2">CB</div>
+      <div class="posicao" data-pos="RB">RB</div>
+    </div>
+    <div class="linha">
+      <div class="posicao" data-pos="GK">GK</div>
+    </div>
+  </div>
+
+  <div class="input-area">
+    <input type="text" id="inputJogador" placeholder="Digite o nome do jogador..." />
+    <button onclick="verificarJogador()">Enviar</button>
+  </div>
+
+  <div class="mensagem-final" id="mensagemFinal"></div>
+
+</body>
+
+</html>
+
+<script>
+  const jogadores = [
+    { nome: "Rafael", pos: "GK" },
+    { nome: "Danilo", pos: "RB" },
+    { nome: "Durval", pos: "CB1" },
+    { nome: "Edu Dracena", pos: "CB2" },
+    { nome: "Léo", pos: "LB" },
+    { nome: "Arouca", pos: "CM1" },
+    { nome: "Adriano", pos: "CM2" },
+    { nome: "Elano", pos: "CM3" },
+    { nome: "Neymar", pos: "ST1" },
+    { nome: "Zé Love", pos: "ST2" },
+    { nome: "Ganso", pos: "ST3" }
+  ];
+
+  let pontuacao = 0;
+  let tentativas = 0;
+  let erros = 0;
+  const acertados = new Set();
+
+  function verificarJogador() {
+    const input = document.getElementById("inputJogador");
+    const nomeDigitado = input.value.trim().toLowerCase();
+
+    if (!nomeDigitado) return;
+
+    tentativas++;
+
+    const encontrado = jogadores.find(j => j.nome.toLowerCase() === nomeDigitado);
+
+    if (encontrado && !acertados.has(encontrado.nome)) {
+      const posicaoDiv = document.querySelector(`[data-pos="${encontrado.pos}"]`);
+      if (posicaoDiv) {
+        posicaoDiv.textContent = encontrado.nome;
+        posicaoDiv.classList.add("preenchido");
+        pontuacao++;
+        acertados.add(encontrado.nome);
+      }
+    } else {
+      erros++;
+    }
+
+    input.value = "";
+
+    if (pontuacao === jogadores.length) {
+      document.getElementById("mensagemFinal").style.display = "block";
+      document.getElementById("mensagemFinal").textContent =
+        `Parabéns! Você acertou todos os jogadores!
+        Pontuação final: ${pontuacao}/11
+        Tentativas: ${tentativas}
+        Erros: ${erros}`;
+    }
+  }
+</script>
