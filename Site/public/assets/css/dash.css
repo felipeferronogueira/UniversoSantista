@@ -182,8 +182,8 @@ html {
 
 /* Cada card individual: agora com proporção vertical */
 .card {
-    width: 180px;
-    height: 280px; /* Altura consideravelmente maior */
+    width: 25vw;
+    height: 70vh; /* Altura consideravelmente maior */
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
