@@ -7,10 +7,8 @@
   <style>
     body {
       margin: 0;
-      background-color: #000;
-      /* Fundo preto */
+      background-image: url('../assets/imgs/santos2011.jpg');
       color: #fff;
-      /* Texto branco */
       font-family: 'Poppins', sans-serif;
       display: flex;
       flex-direction: column;
@@ -19,16 +17,17 @@
     }
 
     h2 {
-      color: #FFD700;
-      /* Amarelo */
+      color: white;
+      background-color: black;
+      padding: 5px;
+      border-radius: 10px;
     }
 
     .campo {
       position: relative;
       width: 800px;
       height: 400px;
-      background-color: #111;
-      /* Preto mais claro para diferenciar */
+      background-color: #111111be;
       border: 2px solid #fff;
       border-radius: 20px;
       display: flex;
@@ -57,10 +56,8 @@
     }
 
     .posicao.preenchido {
-      background-color: #FFD700;
-      /* Fundo amarelo quando acertado */
+      background-color: white;
       color: #000;
-      /* Texto preto */
       font-weight: bold;
     }
 
@@ -73,33 +70,25 @@
     input {
       padding: 10px;
       border-radius: 8px;
-      border: 1px solid #FFD700;
+      border: 1px solid white;
       outline: none;
       font-size: 14px;
       width: 250px;
-      background-color: #fff;
-      color: #000;
+      background-color: #000000;
+      color: white;
     }
 
-    button {
-      padding: 10px 15px;
-      background-color: #FFD700;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
+    .mensagem-resultado {
+      margin-top: 10px;
+      font-size: 16px;
       font-weight: bold;
-      color: #000;
-    }
-
-    .mensagem-final {
-      margin-top: 20px;
-      font-size: 18px;
-      color: #FFD700;
-      font-weight: bold;
-      display: none;
+      color: white;
+      background-color: black;
+      padding: 5px;
     }
   </style>
 </head>
+
 <body>
 
   <h2>Escale o Santos de 2011 (4-3-3)</h2>
@@ -127,43 +116,45 @@
   </div>
 
   <div class="input-area">
-    <input type="text" id="inputJogador" placeholder="Digite o nome do jogador..." />
-    <button onclick="verificarJogador()">Enviar</button>
+    <input type="text" id="inputJogador" placeholder="Digite o nome do jogador..." onkeydown="handleKey(event)" />
   </div>
-
-  <div class="mensagem-final" id="mensagemFinal"></div>
-
+  <div class="mensagem-resultado" id="mensagemResultado"></div>
 </body>
 
 </html>
 
 <script>
-  const jogadores = [
-    { nome: "Rafael", pos: "GK" },
-    { nome: "Danilo", pos: "RB" },
-    { nome: "Durval", pos: "CB1" },
-    { nome: "Edu Dracena", pos: "CB2" },
-    { nome: "Léo", pos: "LB" },
-    { nome: "Arouca", pos: "CM1" },
-    { nome: "Adriano", pos: "CM2" },
-    { nome: "Elano", pos: "CM3" },
-    { nome: "Neymar", pos: "ST1" },
-    { nome: "Zé Love", pos: "ST2" },
-    { nome: "Ganso", pos: "ST3" }
+  const jogadores = [{ nome: "Rafael", pos: "GK" },
+  { nome: "Danilo", pos: "RB" },
+  { nome: "Durval", pos: "CB1" },
+  { nome: "Edu Dracena", pos: "CB2" },
+  { nome: "Leo", pos: "LB" },
+  { nome: "Arouca", pos: "CM1" },
+  { nome: "Adriano", pos: "CM2" },
+  { nome: "Elano", pos: "CM3" },
+  { nome: "Neymar", pos: "ST1" },
+  { nome: "Ze Love", pos: "ST2" },
+  { nome: "Ganso", pos: "ST3" }
   ];
 
   let pontuacao = 0;
-  let tentativas = 0;
   let erros = 0;
+  let tentativasRestantes = 10;
   const acertados = new Set();
+
+  function handleKey(event) {
+    if (event.key === "Enter") {
+      verificarJogador();
+    }
+  }
 
   function verificarJogador() {
     const input = document.getElementById("inputJogador");
     const nomeDigitado = input.value.trim().toLowerCase();
+    const mensagemFinal = document.getElementById("mensagemFinal");
+    const mensagemResultado = document.getElementById("mensagemResultado");
 
-    if (!nomeDigitado) return;
-
-    tentativas++;
+    if (!nomeDigitado || tentativasRestantes <= 0 || pontuacao === jogadores.length) return;
 
     const encontrado = jogadores.find(j => j.nome.toLowerCase() === nomeDigitado);
 
@@ -174,20 +165,60 @@
         posicaoDiv.classList.add("preenchido");
         pontuacao++;
         acertados.add(encontrado.nome);
+        mensagemResultado.innerHTML = "✅ Acertou!";
       }
     } else {
+      tentativasRestantes--;
       erros++;
+      if (tentativasRestantes > 0) {
+        mensagemResultado.innerHTML = `❌ Você errou! Restam ${tentativasRestantes} tentativa(s).`;
+      }
     }
 
     input.value = "";
 
-    if (pontuacao === jogadores.length) {
-      document.getElementById("mensagemFinal").style.display = "block";
-      document.getElementById("mensagemFinal").textContent =
-        `Parabéns! Você acertou todos os jogadores!
+    if (pontuacao === jogadores.length || tentativasRestantes === 0) {
+      mensagemResultado.innerHTML = `Fim de jogo!
         Pontuação final: ${pontuacao}/11
-        Tentativas: ${tentativas}
+        Tentativas restantes: ${tentativasRestantes}
         Erros: ${erros}`;
+
+      var pontuacaoVar = pontuacao;
+      var errosVar = erros;
+      var fkMiniGameVar = 1;
+      var fkUsuarioVar = sessionStorage.ID_USUARIO;
+
+      console.log(pontuacaoVar)
+      console.log(errosVar)
+      console.log(fkMiniGameVar)
+      console.log(fkUsuarioVar)
+
+      fetch("/minigames/pontuacaoEscalacao2011", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          pontuacaoServer: pontuacaoVar,
+          errosServer: errosVar,
+          fkMiniGameServer: fkMiniGameVar,
+          fkUsuarioServer: fkUsuarioVar,
+        }),
+      })
+        .then(response => {
+          if (!response.ok) {
+            return response.text().then(texto => {
+              console.error("Erro na resposta do backend:", texto);
+            });
+          } else {
+            console.log("Requisição bem-sucedida");
+          }
+        })
+        .catch(erro => {
+          console.error("Erro na requisição:", erro);
+        });
+
     }
+
   }
 </script>
