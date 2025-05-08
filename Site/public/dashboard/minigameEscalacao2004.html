@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Santos 2011 - Escalação</title>
+  <link rel="stylesheet" href="../assets/css/miniGames.css">
+</head>
+
+<body>
+
+  <h2>Escale o Santos de 2004 (4-4-2)</h2>
+
+  <div class="campo">
+    <div class="linha">
+      <div class="posicao" data-pos="ST1">ST</div>
+      <div class="posicao" data-pos="ST2">ST</div>
+    </div>
+    <div class="linha">
+        <div class="posicao" data-pos="CM1">CM</div>
+        <div class="posicao" data-pos="CM2">CM</div>
+        <div class="posicao" data-pos="CM3">CM</div>
+        <div class="posicao" data-pos="CM4">CM</div>
+    </div>
+    <div class="linha">
+      <div class="posicao" data-pos="LB">LB</div>
+      <div class="posicao" data-pos="CB1">CB</div>
+      <div class="posicao" data-pos="CB2">CB</div>
+      <div class="posicao" data-pos="RB">RB</div>
+    </div>
+    <div class="linha">
+      <div class="posicao" data-pos="GK">GK</div>
+    </div>
+  </div>
+
+  <div class="input-area">
+    <input type="text" id="inputJogador" placeholder="Digite o nome do jogador..." onkeydown="handleKey(event)" />
+  </div>
+  <div class="mensagem-resultado" id="mensagemResultado"></div>
+</body>
+
+</html>
+
+<script>
+  const jogadores = [
+  { nome: "Mauro", pos: "GK" },
+  { nome: "Paulo César", pos: "RB" },
+  { nome: "Ávalos", pos: "CB1" },
+  { nome: "André Luís", pos: "CB2" },
+  { nome: "Léo", pos: "LB" },
+  { nome: "Marcinho Guerreiro", pos: "CM1" },
+  { nome: "Fabinho", pos: "CM2" },
+  { nome: "Ricardinho", pos: "CM3" },
+  { nome: "Elano", pos: "CM4" },
+  { nome: "Deivid", pos: "ST1" },
+  { nome: "Robinho", pos: "ST2" }
+];
+
+  let pontuacao = 0;
+  let erros = 0;
+  let tentativasRestantes = 10;
+  const acertados = new Set();
+
+  function handleKey(event) {
+    if (event.key === "Enter") {
+      verificarJogador();
+    }
+  }
+
+  function verificarJogador() {
+    const input = document.getElementById("inputJogador");
+    const nomeDigitado = input.value.trim().toLowerCase();
+    const mensagemFinal = document.getElementById("mensagemFinal");
+    const mensagemResultado = document.getElementById("mensagemResultado");
+
+    if (!nomeDigitado || tentativasRestantes <= 0 || pontuacao === jogadores.length) return;
+
+    const encontrado = jogadores.find(j => j.nome.toLowerCase() === nomeDigitado);
+
+    if (encontrado && !acertados.has(encontrado.nome)) {
+      const posicaoDiv = document.querySelector(`[data-pos="${encontrado.pos}"]`);
+      if (posicaoDiv) {
+        posicaoDiv.textContent = encontrado.nome;
+        posicaoDiv.classList.add("preenchido");
+        pontuacao++;
+        acertados.add(encontrado.nome);
+        mensagemResultado.innerHTML = "✅ Acertou!";
+      }
+    } else {
+      tentativasRestantes--;
+      erros++;
+      if (tentativasRestantes > 0) {
+        mensagemResultado.innerHTML = `❌ Você errou! Restam ${tentativasRestantes} tentativa(s).`;
+      }
+    }
+
+    input.value = "";
+
+    if (pontuacao === jogadores.length || tentativasRestantes === 0) {
+      mensagemResultado.innerHTML = `Fim de jogo!
+        Pontuação final: ${pontuacao}/11
+        Tentativas restantes: ${tentativasRestantes}
+        Erros: ${erros}`;
+
+      var pontuacaoVar = pontuacao;
+      var errosVar = erros;
+      var fkMiniGameVar = 2;
+      var fkUsuarioVar = sessionStorage.ID_USUARIO;
+
+      console.log(pontuacaoVar)
+      console.log(errosVar)
+      console.log(fkMiniGameVar)
+      console.log(fkUsuarioVar)
+
+      fetch("/minigames/pontuacaoEscalacao2011", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          pontuacaoServer: pontuacaoVar,
+          errosServer: errosVar,
+          fkMiniGameServer: fkMiniGameVar,
+          fkUsuarioServer: fkUsuarioVar,
+        }),
+      })
+        .then(response => {
+          if (!response.ok) {
+            return response.text().then(texto => {
+              console.error("Erro na resposta do backend:", texto);
+            });
+          } else {
+            console.log("Requisição bem-sucedida");
+          }
+        })
+        .catch(erro => {
+          console.error("Erro na requisição:", erro);
+        });
+
+    }
+
+  }
+</script>

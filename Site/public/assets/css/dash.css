@@ -182,7 +182,7 @@ html {
 
 /* Cada card individual: agora com proporção vertical */
 .card {
-    width: 25vw;
+    width: 20vw;
     height: 70vh; /* Altura consideravelmente maior */
     border-radius: 12px;
     overflow: hidden;

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo Termo</title>
+  <link rel="stylesheet" href="../assets/css/termo.css">
+</head>
+
+<body>
+  <h1>Jogo Termo</h1>
+
+  <div class="caixa-entrada-container">
+    <input type="text" id="letra1" class="caixa-entrada" maxlength="1" oninput="moverProximo(1)"
+      onkeydown="moverAnterior(1, event)" />
+    <input type="text" id="letra2" class="caixa-entrada" maxlength="1" oninput="moverProximo(2)"
+      onkeydown="moverAnterior(2, event)" />
+    <input type="text" id="letra3" class="caixa-entrada" maxlength="1" oninput="moverProximo(3)"
+      onkeydown="moverAnterior(3, event)" />
+    <input type="text" id="letra4" class="caixa-entrada" maxlength="1" oninput="moverProximo(4)"
+      onkeydown="moverAnterior(4, event)" />
+    <input type="text" id="letra5" class="caixa-entrada" maxlength="1" oninput="moverProximo(5)"
+      onkeydown="moverAnterior(5, event)" />
+  </div>
+
+  <button id="botaoVerificar" onclick="verificarPalpite()" class="botao">Verificar</button>
+  <button id="botaoRecomecar" onclick="recomecarJogo()" class="botao" style="display: none;">Jogar Novamente</button>
+
+  <div id="mensagem" class="mensagem"></div>
+
+  <div class="grade-palavras" id="gradePalavras"></div>
+</body>
+
+</html>
+
+<script>
+  const palavrasComDicas = [
+
+    { palavra: "PEIXE", dica: "Apelido carinhoso do Santos FC" }
+  
+  ];
+
+  let palavraSecreta = "";
+  let dicaPalavra = "";
+  let tentativas = 0;
+  let pontuacao = 0;
+
+  function sortearPalavra() {
+    const sorteada = palavrasComDicas[Math.floor(Math.random() * palavrasComDicas.length)];
+    palavraSecreta = sorteada.palavra.toUpperCase();
+    dicaPalavra = sorteada.dica;
+    mostrarMensagem("alerta", `Dica: ${dicaPalavra}`);
+  }
+
+  sortearPalavra(); // Inicializa o jogo com a dica
+
+  function moverProximo(i) {
+    const atual = document.getElementById(`letra${i}`);
+    if (i < 5 && atual.value.length) document.getElementById(`letra${i + 1}`).focus();
+  }
+
+  function moverAnterior(i, e) {
+    if (e.key === "Backspace" && i > 1 && !document.getElementById(`letra${i}`).value) document.getElementById(`letra${i - 1}`).focus();
+  }
+
+  function verificarPalpite() {
+    const palpite = Array.from({ length: 5 }, (_, i) => document.getElementById(`letra${i + 1}`).value.toUpperCase()).join("");
+
+    if (palpite.length !== 5) return mostrarMensagem("alerta", "A palavra deve ter 5 letras!");
+
+    const linha = document.createElement("div");
+    linha.classList.add("linha");
+
+    for (let i = 0; i < 5; i++) {
+      const div = document.createElement("div");
+      div.className = "letra";
+      if (palpite[i] === palavraSecreta[i]) {
+        div.classList.add("correta");
+      } else if (palavraSecreta.includes(palpite[i])) {
+        div.classList.add("posicao-errada");
+      } else {
+        div.classList.add("incorreta");
+      }
+      div.textContent = palpite[i];
+      linha.appendChild(div);
+    }
+
+    gradePalavras.appendChild(linha);
+    limparCampos();
+
+    if (palpite === palavraSecreta) {
+      pontuacao = 100 - (tentativas * 15);
+      mostrarMensagem("sucesso", `Parabéns! Você acertou: ${palavraSecreta}`);
+      enviarPontuacao(pontuacao, tentativas);
+      alternarBotoes(false);
+    } else if (++tentativas >= 6) {
+      pontuacao = 0;
+      mostrarMensagem("erro", `Você perdeu! A palavra era "${palavraSecreta}".`);
+      enviarPontuacao(pontuacao, tentativas);
+      alternarBotoes(false);
+    } else {
+      mostrarMensagem("erro", `Tentativa ${tentativas + 1}/6. Tente novamente!`);
+    }
+  }
+
+  function recomecarJogo() {
+    limparCampos();
+    gradePalavras.innerHTML = "";
+    tentativas = 0;
+    pontuacao = 0;
+    sortearPalavra();
+    mostrarMensagem("", "");
+    alternarBotoes(true);
+  }
+
+  function limparCampos() {
+    for (let i = 1; i <= 5; i++) document.getElementById(`letra${i}`).value = "";
+    letra1.focus();
+  }
+
+  function mostrarMensagem(tipo, texto) {
+    mensagem.textContent = texto;
+    mensagem.className = "mensagem " + tipo;
+  }
+
+  function alternarBotoes(verificarVisivel) {
+    botaoVerificar.style.display = verificarVisivel ? "inline-block" : "none";
+    botaoRecomecar.style.display = verificarVisivel ? "none" : "inline-block";
+  }
+
+  function enviarPontuacao(pontuacao, erros) {
+    var pontuacaoVar = pontuacao;
+    var errosVar = erros;
+    var fkMiniGameVar = 3;
+    var fkUsuarioVar = sessionStorage.ID_USUARIO;
+
+    console.log(pontuacaoVar);
+    console.log(errosVar);
+    console.log(fkMiniGameVar);
+    console.log(fkUsuarioVar);
+
+    fetch("/minigames/pontuacaoEscalacao2011", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        pontuacaoServer: pontuacaoVar,
+        errosServer: errosVar,
+        fkMiniGameServer: fkMiniGameVar,
+        fkUsuarioServer: fkUsuarioVar,
+      }),
+    })
+      .then(response => {
+        if (!response.ok) {
+          return response.text().then(texto => {
+            console.error("Erro na resposta do backend:", texto);
+          });
+        } else {
+          console.log("Requisição bem-sucedida");
+        }
+      })
+      .catch(erro => {
+        console.error("Erro na requisição:", erro);
+      });
+  }
+</script>
