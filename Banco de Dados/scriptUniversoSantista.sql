@@ -31,7 +31,10 @@ create table miniGame (
 );
 
 insert into miniGame(nome) values
-('Escalação Santos 2011');
+('Escalação Santos 2004'),
+('Escalação Santos 2011'),
+('Termo do Santos FC');
+
 
 create table pontuacao (
   idPontuacao int primary key auto_increment,
