@@ -1,17 +1,10 @@
-/* Paleta de cores inspirada na Ferrari */
-:root {
-    --vermelho-ferrari: #FF2800;
-    --amarelo-ferrari: #FFDD00;
-    --preto: #000000;
-    --branco: #FFFFFF;
-    --cinza-claro: #f2f2f2;
-  }
-  
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700&display=swap');
+
   /* Estilo geral da página */
   body {
-    font-family: 'Arial', sans-serif;
-    background-color: var(--vermelho-ferrari);
-    color: var(--branco);
+    font-family: 'Epilogue';
+    background-image: url('../imgs/FlK-Er2WIAU3TBW.jpg_large');
+    background-size: cover;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,8 +14,7 @@
   /* Título do jogo */
   h1 {
     font-size: 3rem;
-    color: var(--amarelo-ferrari);
-    text-shadow: 3px 3px 5px var(--preto);
+    color: white;
     margin-bottom: 20px;
     letter-spacing: 2px;
   }
@@ -44,40 +36,37 @@
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 3px;
-    border: 2px solid var(--amarelo-ferrari);
-    background-color: var(--preto);
-    color: var(--branco);
+    border: 2px solid white;
+    background-color: black;
+    color: white;
     border-radius: 10px;
     box-sizing: border-box;
     transition: all 0.3s ease;
+    font-family: 'Epilogue';
   }
   
   .caixa-entrada:focus {
     outline: none;
-    border-color: var(--amarelo-ferrari);
-    background-color: var(--cinza-claro);
-    color: var(--vermelho-ferrari);
+    border-color: white;
+    background-color: transparent;
+    color: white;
   }
   
   /* Estilo dos botões */
   .botao {
     padding: 15px 30px;
     font-size: 18px;
-    background-color: var(--amarelo-ferrari);
-    color: var(--preto);
+    background-color: white;
+    color: black;
     border: none;
     border-radius: 10px;
     cursor: pointer;
     margin: 10px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
+    font-family: 'Epilogue';
   }
-  
-  .botao:hover {
-    background-color: var(--branco);
-    color: var(--preto);
-    transform: scale(1.1);
-  }
+
   
   /* Estilo das mensagens */
   .mensagem {
@@ -92,13 +81,15 @@
     max-width: 80%;
     word-wrap: break-word;
     transition: all 0.3s ease;
+    font-family: 'Epilogue';
   }
   
   /* Mensagem de sucesso */
   .mensagem.sucesso {
-    color: #28a745;
+    color: green;
     background-color: #d4edda;
     border-color: #c3e6cb;
+    font-family: 'Epilogue';
   }
   
   /* Mensagem de erro */
@@ -106,13 +97,15 @@
     color: #dc3545;
     background-color: #f8d7da;
     border-color: #f5c6cb;
+    font-family: 'Epilogue';
   }
   
   /* Mensagem de alerta */
   .mensagem.alerta {
     color: #ffc107;
-    background-color: #fff3cd;
+    background-color: black;
     border-color: #ffeeba;
+    font-family: 'Epilogue';
   }
   
   /* Estilo das letras exibidas no histórico */
@@ -129,29 +122,30 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid var(--amarelo-ferrari);
+    border: 2px solid black;
     font-size: 24px;
     font-weight: bold;
-    color: var(--branco);
-    background-color: var(--preto);
+    color: white;
+    background-color: black;
     border-radius: 10px;
     transition: all 0.3s ease;
+    font-family: 'Epilogue';
   }
   
   /* Cores das letras dependendo da verificação */
   .correta {
     background-color: #6fff00;
-    color: var(--preto);
+    color: black; 
   }
   
   .posicao-errada {
-    background-color: var(--amarelo-ferrari);
-    color: var(--preto);
+    background-color: yellow;
+    color: black;
   }
   
   .incorreta {
     background-color: #F44336;
-    color: var(--branco);
+    color: black;
   }
   
  

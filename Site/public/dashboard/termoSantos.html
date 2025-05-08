@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <h1>Jogo Termo</h1>
+  <h1>Termo do Santos</h1>
 
   <div class="caixa-entrada-container">
     <input type="text" id="letra1" class="caixa-entrada" maxlength="1" oninput="moverProximo(1)"
@@ -36,9 +36,7 @@
 
 <script>
   const palavrasComDicas = [
-
     { palavra: "PEIXE", dica: "Apelido carinhoso do Santos FC" }
-  
   ];
 
   let palavraSecreta = "";
@@ -65,7 +63,7 @@
   }
 
   function verificarPalpite() {
-    const palpite = Array.from({ length: 5 }, (_, i) => document.getElementById(`letra${i + 1}`).value.toUpperCase()).join("");
+    const palpite = Array.from({ length: 5 }, (_,i) => document.getElementById(`letra${i + 1}`).value.toUpperCase()).join("");
 
     if (palpite.length !== 5) return mostrarMensagem("alerta", "A palavra deve ter 5 letras!");
 
