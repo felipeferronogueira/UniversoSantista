@@ -1,152 +1,173 @@
 @import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700&display=swap');
 
-  /* Estilo geral da página */
-  body {
-    font-family: 'Epilogue';
-    background-image: url('../imgs/FlK-Er2WIAU3TBW.jpg_large');
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  
-  /* Título do jogo */
-  h1 {
-    font-size: 3rem;
-    color: white;
-    margin-bottom: 20px;
-    letter-spacing: 2px;
-  }
-  
-  /* Contêiner dos campos de letras */
-  .caixa-entrada-container {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 30px;
-  }
-  
-  /* Campos de letra individuais */
-  .caixa-entrada {
-    font-size: 24px;
-    padding: 15px;
-    width: 60px;
-    height: 60px;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    border: 2px solid white;
-    background-color: black;
-    color: white;
-    border-radius: 10px;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-    font-family: 'Epilogue';
-  }
-  
-  .caixa-entrada:focus {
-    outline: none;
-    border-color: white;
-    background-color: transparent;
-    color: white;
-  }
-  
-  /* Estilo dos botões */
-  .botao {
-    padding: 15px 30px;
-    font-size: 18px;
-    background-color: white;
-    color: black;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    margin: 10px;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-    font-family: 'Epilogue';
-  }
+/* Estilo geral da página */
+body {
+  font-family: 'Epilogue';
+  background-image: url('../imgs/FlK-Er2WIAU3TBW.jpg_large');
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 
-  
-  /* Estilo das mensagens */
-  .mensagem {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #f8f8f8;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    max-width: 80%;
-    word-wrap: break-word;
-    transition: all 0.3s ease;
-    font-family: 'Epilogue';
-  }
-  
-  /* Mensagem de sucesso */
-  .mensagem.sucesso {
-    color: green;
-    background-color: #d4edda;
-    border-color: #c3e6cb;
-    font-family: 'Epilogue';
-  }
-  
-  /* Mensagem de erro */
-  .mensagem.erro {
-    color: #dc3545;
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
-    font-family: 'Epilogue';
-  }
-  
-  /* Mensagem de alerta */
-  .mensagem.alerta {
-    color: #ffc107;
-    background-color: black;
-    border-color: #ffeeba;
-    font-family: 'Epilogue';
-  }
-  
-  /* Estilo das letras exibidas no histórico */
-  .linha {
-    display: flex;
-    justify-content: center;
-    margin: 10px 0;
-    gap: 5px;
-  }
-  
-  .letra {
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid black;
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    background-color: black;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-    font-family: 'Epilogue';
-  }
-  
-  /* Cores das letras dependendo da verificação */
-  .correta {
-    background-color: #6fff00;
-    color: black; 
-  }
-  
-  .posicao-errada {
-    background-color: yellow;
-    color: black;
-  }
-  
-  .incorreta {
-    background-color: #F44336;
-    color: black;
-  }
-  
- 
-  
+/* Título do jogo */
+h1 {
+  font-size: 3rem;
+  color: white;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+}
+
+/* Botão de sair fixado no canto superior direito */
+.botao-sair {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #dc3545;
+  /* vermelho */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Epilogue';
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+.botao-sair:hover {
+  background-color: #c82333;
+}
+
+
+/* Contêiner dos campos de letras */
+.caixa-entrada-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+/* Campos de letra individuais */
+.caixa-entrada {
+  font-size: 24px;
+  padding: 15px;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  border: 2px solid white;
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  font-family: 'Epilogue';
+}
+
+.caixa-entrada:focus {
+  outline: none;
+  border-color: white;
+  background-color: transparent;
+  color: white;
+}
+
+/* Estilo dos botões */
+.botao {
+  padding: 15px 30px;
+  font-size: 18px;
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 10px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  font-family: 'Epilogue';
+}
+
+
+/* Estilo das mensagens */
+.mensagem {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #f8f8f8;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  max-width: 80%;
+  word-wrap: break-word;
+  transition: all 0.3s ease;
+  font-family: 'Epilogue';
+}
+
+/* Mensagem de sucesso */
+.mensagem.sucesso {
+  color: green;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  font-family: 'Epilogue';
+}
+
+/* Mensagem de erro */
+.mensagem.erro {
+  color: #dc3545;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  font-family: 'Epilogue';
+}
+
+/* Mensagem de alerta */
+.mensagem.alerta {
+  color: #ffc107;
+  background-color: black;
+  border-color: #ffeeba;
+  font-family: 'Epilogue';
+}
+
+/* Estilo das letras exibidas no histórico */
+.linha {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+  gap: 5px;
+}
+
+.letra {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  background-color: black;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  font-family: 'Epilogue';
+}
+
+/* Cores das letras dependendo da verificação */
+.correta {
+  background-color: #6fff00;
+  color: black;
+}
+
+.posicao-errada {
+  background-color: yellow;
+  color: black;
+}
+
+.incorreta {
+  background-color: #F44336;
+  color: black;
+}
