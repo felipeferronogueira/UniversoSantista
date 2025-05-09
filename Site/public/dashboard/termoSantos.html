@@ -11,18 +11,7 @@
 <body>
   <h1>Termo do Santos</h1>
 
-  <div class="caixa-entrada-container">
-    <input type="text" id="letra1" class="caixa-entrada" maxlength="1" oninput="moverProximo(1)"
-      onkeydown="moverAnterior(1, event)" />
-    <input type="text" id="letra2" class="caixa-entrada" maxlength="1" oninput="moverProximo(2)"
-      onkeydown="moverAnterior(2, event)" />
-    <input type="text" id="letra3" class="caixa-entrada" maxlength="1" oninput="moverProximo(3)"
-      onkeydown="moverAnterior(3, event)" />
-    <input type="text" id="letra4" class="caixa-entrada" maxlength="1" oninput="moverProximo(4)"
-      onkeydown="moverAnterior(4, event)" />
-    <input type="text" id="letra5" class="caixa-entrada" maxlength="1" oninput="moverProximo(5)"
-      onkeydown="moverAnterior(5, event)" />
-  </div>
+  <div class="caixa-entrada-container" id="inputsContainer"></div>
 
   <button id="botaoVerificar" onclick="verificarPalpite()" class="botao">Verificar</button>
   <button id="botaoRecomecar" onclick="recomecarJogo()" class="botao" style="display: none;">Jogar Novamente</button>
@@ -35,8 +24,30 @@
 </html>
 
 <script>
-  const palavrasComDicas = [
-    { palavra: "PEIXE", dica: "Apelido carinhoso do Santos FC" }
+ const palavrasComDicas = [
+    { palavra: "PEIXE", dica: "Apelido carinhoso do Santos FC" },
+    { palavra: "VILA", dica: "Estádio do Santos FC" },
+    { palavra: "NEYMAR", dica: "Revelado no Santos e hoje astro mundial" },
+    { palavra: "PELÉ", dica: "O rei do futebol" },
+    { palavra: "SANTOS", dica: "Nome do time" },
+    { palavra: "ALVINEGRO", dica: "Cores tradicionais do Santos" },
+    { palavra: "SEREIAS", dica: "Apelido do time feminino" },
+    { palavra: "LIBERTADORES", dica: "Título continental conquistado pelo Santos" },
+    { palavra: "BI", dica: "Quantas vezes Pelé foi campeão mundial pelo Santos?" },
+    { palavra: "ROBINHO", dica: "Fez o pedalada histórica na final de 2002" },
+    { palavra: "DIEGO", dica: "Parceiro do Robinho em 2002" },
+    { palavra: "RAFAEL", dica: "Goleiro campeão da Libertadores de 2011" },
+    { palavra: "MURICY", dica: "Treinador do título em 2011" },
+    { palavra: "SANTISTA", dica: "Torcedor fanático" },
+    { palavra: "BRANCO", dica: "Uma das cores do uniforme" },
+    { palavra: "ATAQUE", dica: "Setor do campo onde Neymar jogava" },
+    { palavra: "DEFESA", dica: "Setor que evita os gols" },
+    { palavra: "ESCUDO", dica: "Símbolo que representa o time" },
+    { palavra: "CAMISA", dica: "Peça usada pelos jogadores" },
+    { palavra: "CALÇÃO", dica: "Parte inferior do uniforme" },
+    { palavra: "BOLA", dica: "Objeto principal do jogo" },
+    { palavra: "TÍTULO", dica: "Todo torcedor quer ver o time conquistar" },
+    { palavra: "ZAGUEIRO", dica: "Jogador da linha de defesa" }
   ];
 
   let palavraSecreta = "";
@@ -44,18 +55,35 @@
   let tentativas = 0;
   let pontuacao = 0;
 
+  sortearPalavra(); // Inicializa o jogo
+
   function sortearPalavra() {
     const sorteada = palavrasComDicas[Math.floor(Math.random() * palavrasComDicas.length)];
     palavraSecreta = sorteada.palavra.toUpperCase();
     dicaPalavra = sorteada.dica;
+
     mostrarMensagem("alerta", `Dica: ${dicaPalavra}`);
+    gerarInputs(palavraSecreta.length);
   }
 
-  sortearPalavra(); // Inicializa o jogo com a dica
+  function gerarInputs(qtd) {
+    inputsContainer.innerHTML = ""; // limpa inputs antigos
+    for (let i = 1; i <= qtd; i++) {
+      const input = document.createElement("input");
+      input.type = "text";
+      input.id = `letra${i}`;
+      input.className = "caixa-entrada";
+      input.maxLength = 1;
+      input.oninput = () => moverProximo(i);
+      input.onkeydown = (e) => moverAnterior(i, e);
+      inputsContainer.appendChild(input); 
+    }
+    document.getElementById("letra1").focus();
+  }
 
   function moverProximo(i) {
     const atual = document.getElementById(`letra${i}`);
-    if (i < 5 && atual.value.length) document.getElementById(`letra${i + 1}`).focus();
+    if (i < palavraSecreta.length && atual.value.length) document.getElementById(`letra${i + 1}`).focus();
   }
 
   function moverAnterior(i, e) {
@@ -63,14 +91,17 @@
   }
 
   function verificarPalpite() {
-    const palpite = Array.from({ length: 5 }, (_,i) => document.getElementById(`letra${i + 1}`).value.toUpperCase()).join("");
+    const palpite = Array.from({ length: palavraSecreta.length }, (_, i) =>
+      document.getElementById(`letra${i + 1}`).value.toUpperCase()
+    ).join("");
 
-    if (palpite.length !== 5) return mostrarMensagem("alerta", "A palavra deve ter 5 letras!");
+    if (palpite.length !== palavraSecreta.length)
+      return mostrarMensagem("alerta", `A palavra deve ter ${palavraSecreta.length} letras!`);
 
     const linha = document.createElement("div");
     linha.classList.add("linha");
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < palavraSecreta.length; i++) {
       const div = document.createElement("div");
       div.className = "letra";
       if (palpite[i] === palavraSecreta[i]) {
@@ -113,8 +144,9 @@
   }
 
   function limparCampos() {
-    for (let i = 1; i <= 5; i++) document.getElementById(`letra${i}`).value = "";
-    letra1.focus();
+    for (let i = 1; i <= palavraSecreta.length; i++)
+      document.getElementById(`letra${i}`).value = "";
+    document.getElementById("letra1").focus();
   }
 
   function mostrarMensagem(tipo, texto) {
