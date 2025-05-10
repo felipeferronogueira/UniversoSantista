@@ -14,7 +14,7 @@
 
     <div class="sidebar">
       <img src="../assets/imgs/Santos_logo.svg.png" alt="Logo Santos" class="logo" />
-      <p class="usuario">Olá, usuário X</p>
+      <h3 class="usuario">Olá, <span id="b_usuario">usuário</span>!</h3>
 
       <div class="sidebar-btns">
         <a href="dashHistoria.html" style="text-decoration: none;">
@@ -63,3 +63,7 @@
   </div>
 </body>
 </html>
+
+<script>
+  b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+</script>

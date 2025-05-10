@@ -22,9 +22,10 @@ function listarPontuacoes(idUsuario, idMinigame) {
 
 function jogadoresFavoritos() {
     const instrucaoSql = `
-        SELECT fkJogador, COUNT(*) AS total
-        FROM usuario
-        GROUP BY fkJogador;
+        SELECT jf.nome AS jogador, COUNT(u.idUsuario) AS total
+        FROM usuario u
+        JOIN jogadorFavorito jf ON u.fkJogador = jf.idJogador
+        GROUP BY jf.nome
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

@@ -9,7 +9,11 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body>
+<body>  
+    <a href="./dashHome.html">
+        <button id="botaoSair" class="botao-sair">Sair</button>
+    </a>
+
     <div class="container">
         <h1>Usuários por Jogador Favorito</h1>
     
@@ -17,14 +21,13 @@
             <canvas id="graficoPizza"></canvas>
         </div>
     </div>
-    
 </body>
 </html>
 <script>
         fetch("/minigames/jogadores-favoritos")
             .then(res => res.json())
             .then(data => {
-                const labels = data.map(item => `Jogador ${item.fkJogador}`);
+                const labels = data.map(item => `${item.jogador}`);
                 const valores = data.map(item => item.total);
 
                 new Chart(document.getElementById("graficoPizza"), {
