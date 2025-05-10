@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jogadores Favoritos</title>
+    <link rel="stylesheet" href="../assets/css/favoritos.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Usuários por Jogador Favorito</h1>
+    
+        <div class="grafico-box">
+            <canvas id="graficoPizza"></canvas>
+        </div>
+    </div>
+    
+</body>
+</html>
+<script>
+        fetch("/minigames/jogadores-favoritos")
+            .then(res => res.json())
+            .then(data => {
+                const labels = data.map(item => `Jogador ${item.fkJogador}`);
+                const valores = data.map(item => item.total);
+
+                new Chart(document.getElementById("graficoPizza"), {
+                    type: "pie",
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: "Usuários",
+                            data: valores,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',   // vermelho claro
+                                'rgba(34, 168, 0, 0.2)',     // verde claro
+                                'rgba(54, 162, 235, 0.2)',   // azul claro
+                                'rgba(255, 206, 86, 0.2)',   // amarelo claro
+                                'rgba(153, 102, 255, 0.2)'   // roxo claro
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',     // vermelho forte
+                                '#04ff00',                   // verde neon
+                                'rgba(54, 162, 235, 1)',     // azul forte
+                                'rgba(255, 206, 86, 1)',     // amarelo forte
+                                'rgba(153, 102, 255, 1)'     // roxo forte
+                            ],
+
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: "white"
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+</script>

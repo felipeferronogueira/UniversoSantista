@@ -11,6 +11,10 @@
 
   <h2>Escale o Santos de 2004 (4-4-2)</h2>
 
+  <a href="./dashMinigames.html">
+    <button id="botaoSair" class="botao-sair">Sair</button>
+  </a>
+
   <div class="campo">
     <div class="linha">
       <div class="posicao" data-pos="ST1">ST</div>
@@ -112,7 +116,7 @@
       console.log(fkMiniGameVar)
       console.log(fkUsuarioVar)
 
-      fetch("/minigames/pontuacaoEscalacao2011", {
+      fetch("/minigames/inserirPontuacao", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

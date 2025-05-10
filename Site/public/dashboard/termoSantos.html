@@ -123,7 +123,7 @@
     limparCampos();
 
     if (palpite === palavraSecreta) {
-      pontuacao = 100 - (tentativas * 15);
+      pontuacao = Math.max(0, 10 - tentativas);
       mostrarMensagem("sucesso", `Parabéns! Você acertou: ${palavraSecreta}`);
       enviarPontuacao(pontuacao, tentativas);
       alternarBotoes(false);
@@ -174,7 +174,7 @@
     console.log(fkMiniGameVar);
     console.log(fkUsuarioVar);
 
-    fetch("/minigames/pontuacaoEscalacao2011", {
+    fetch("/minigames/inserirPontuacao", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

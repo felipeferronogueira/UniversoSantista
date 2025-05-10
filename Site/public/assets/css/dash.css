@@ -20,7 +20,6 @@ html {
     overflow: hidden;
 }
 
-/* Sidebar */
 .sidebar {
     width: 250px;
     height: 100%;
@@ -47,36 +46,33 @@ html {
     margin-bottom: 40px;
 }
 
-/* Container dos botões: coluna com espaçamento entre eles */
 .sidebar-btns {
-    display: flex; /* coloca os botões em um layout flexível */
-    flex-direction: column; /* empilha verticalmente */
-    gap: 20px; /* espaçamento entre os botões */
+    display: flex;
+    flex-direction: column; 
+    gap: 20px;
     align-items: stretch; /* faz os botões ocuparem toda a largura disponível */
 }
 
-/* Estilo base do botão */
 .btn {
-    width: 7vw; /* largura relativa à largura da tela */
-    min-width: 130px; /* largura mínima para manter legibilidade em telas pequenas */
-    height: 45px; /* altura fixa */
-    display: flex; /* usa flexbox para alinhar conteúdo dentro do botão */
-    align-items: center; /* centraliza verticalmente o texto e o ícone */
-    justify-content: center; /* centraliza horizontalmente */
-    gap: 8px; /* espaço entre texto e ícone */
-    background-color: rgb(255, 255, 255); /* fundo branco */
-    color: black; /* texto preto */
-    font-weight: 600; /* texto em negrito */
-    font-family: 'Epilogue', sans-serif; /* fonte principal do projeto */
-    border: none; /* remove bordas padrão */
-    cursor: pointer; /* muda o cursor ao passar por cima */
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.103); /* sombra suave */
-    position: relative; /* necessário para o posicionamento do ::before */
+    width: 7vw; 
+    min-width: 130px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: rgb(255, 255, 255);
+    color: black; 
+    font-weight: 600; 
+    font-family: 'Epilogue', sans-serif; 
+    border: none; 
+    cursor: pointer;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.103);
+    position: relative; 
     overflow: hidden; /* esconde o pseudo-elemento(before) quando ele estiver fora */
     transition-duration: 0.3s; /* suaviza a animação de clique */ 
 }
 
-/* Pseudo-elemento decorativo: cria o efeito de transição ao passar o mouse */
 .btn::before {
     content: ""; /* conteúdo vazio, só serve para efeito visual */
     position: absolute; /* posição absoluta em relação ao botão */
@@ -90,39 +86,37 @@ html {
     mix-blend-mode: difference; /* inverte as cores onde o círculo passa */
 }
 
-/* Quando o mouse passa sobre o botão */
 .btn:hover::before {
     transform: translate(100%, -50%); /* move o círculo para a direita e para cima */
     border-radius: 0; /* remove o formato circular, virando um quadrado deformado */
 }
 
-/* Quando o botão é clicado */
 .btn:active {
     transform: translate(5px, 5px); /* botão "afunda" levemente ao ser pressionado */
     transition-duration: 0.3s; /* animação suave do clique */
 }
 
 .btnSair {
-    width: 7vw; /* largura relativa à largura da tela */
-    min-width: 130px; /* largura mínima para manter legibilidade em telas pequenas */
-    height: 45px; /* altura fixa */
-    display: flex; /* usa flexbox para alinhar conteúdo dentro do botão */
-    align-items: center; /* centraliza verticalmente o texto e o ícone */
-    justify-content: center; /* centraliza horizontalmente */
-    gap: 8px; /* espaço entre texto e ícone */
-    background-color: black; /* fundo branco */
-    color: white; /* texto preto */
-    font-weight: 600; /* texto em negrito */
-    font-family: 'Epilogue', sans-serif; /* fonte principal do projeto */
-    border: none; /* remove bordas padrão */
-    cursor: pointer; /* muda o cursor ao passar por cima */
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.103); /* sombra suave */
+    width: 7vw; 
+    min-width: 130px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: black;
+    color: white; 
+    font-weight: 600; 
+    font-family: 'Epilogue', sans-serif; 
+    border: none; 
+    cursor: pointer;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.103);
+    position: relative;
     position: relative; /* necessário para o posicionamento do ::before */
     overflow: hidden; /* esconde o pseudo-elemento(before) quando ele estiver fora */
     transition-duration: 0.3s; /* suaviza a animação de clique */ 
 }
 
-/* Pseudo-elemento decorativo: cria o efeito de transição ao passar o mouse */
 .btnSair::before {
     content: ""; /* conteúdo vazio, só serve para efeito visual */
     position: absolute; /* posição absoluta em relação ao botão */
@@ -136,20 +130,18 @@ html {
     mix-blend-mode: difference; /* inverte as cores onde o círculo passa */
 }
 
-/* Quando o mouse passa sobre o botão */
 .btnSair:hover::before {
     transform: translate(100%, -50%); /* move o círculo para a direita e para cima */
     border-radius: 0; /* remove o formato circular, virando um quadrado deformado */
 }
 
-/* Quando o botão é clicado */
 .btnSair:active {
     transform: translate(5px, 5px); /* botão "afunda" levemente ao ser pressionado */
     transition-duration: 0.3s; /* animação suave do clique */
 }
 
 .background-image {
-    position: absolute; /* Adicione isso */
+    position: absolute; 
     top: 0;
     left: 0;
     height: 100%;
@@ -169,7 +161,6 @@ html {
     z-index: 1;
 }
 
-/* Container para os cards, com espaçamento horizontal */
 .cards-container {
     display: flex;
     flex-direction: row;
@@ -179,7 +170,6 @@ html {
     z-index: 2;
 }
 
-/* Cada card */
 .card {
     width: 20vw;
     height: 70vh;
@@ -190,27 +180,23 @@ html {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Hover nos cards */
 .card:hover {
     transform: scale(1.05);
     box-shadow: 0px 6px 20px rgba(0,0,0,0.5);
 }
 
-/* Envolve a imagem e texto */
 .card-image {
     position: relative;
     width: 100%;
     height: 100%;
 }
 
-/* Imagem do card */
 .card-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-/* Texto sobre a imagem */
 .card-text {
     position: absolute;
     bottom: 0;
@@ -222,4 +208,5 @@ html {
     text-align: center;
     padding: 10px 0;
     font-family: 'Epilogue', sans-serif;
+    text-decoration: none;
 }

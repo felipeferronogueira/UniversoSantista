@@ -1,6 +1,6 @@
 var minigameModel = require("../models/minigamesModel");
 
-function pontuacaoEscalacao2011(req, res) {
+function inserirPontuacao(req, res) {
     var pontuacao = req.body.pontuacaoServer;
     var erros = req.body.errosServer;
     var fkUsuario = req.body.fkUsuarioServer;
@@ -18,7 +18,7 @@ function pontuacaoEscalacao2011(req, res) {
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        minigameModel.pontuacaoEscalacao2011(pontuacao, erros, fkUsuario, fkMinigame)
+        minigameModel.inserirPontuacao(pontuacao, erros, fkUsuario, fkMinigame)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -36,6 +36,30 @@ function pontuacaoEscalacao2011(req, res) {
     }
 }
 
+function listarPontuacoes(req, res) {
+    const { idUsuario, idMinigame } = req.params;
+
+    minigameModel.listarPontuacoes(idUsuario, idMinigame)
+        .then(result => res.json(result))
+        .catch(erro => {
+            console.error("Erro ao buscar pontuações:", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function jogadoresFavoritos(req, res) {
+    minigameModel.jogadoresFavoritos()
+        .then(resultado => res.json(resultado))
+        .catch(erro => {
+            console.log("Erro ao buscar jogadores favoritos:", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+
+
 module.exports = {
-    pontuacaoEscalacao2011
+    inserirPontuacao,
+    listarPontuacoes,
+    jogadoresFavoritos
 }

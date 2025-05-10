@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700&display=swap');
+
+
+body {
+    font-family: "Epilogue";
+    background-image: url(../imgs/FlK-Er2WIAU3TBW.jpg_large);
+    background-size: cover;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  h1{
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .container {
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  select {
+    padding: 10px;
+    margin: 20px 0;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+  
+  .grafico-container {
+    background-color: #000000d1;
+    border: 2px solid white;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .botao-sair {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Epilogue';
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+  }
+  
+  .botao-sair:hover {
+    background-color: #c82333;
+  }

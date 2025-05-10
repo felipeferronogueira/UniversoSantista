@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gráfico de Pontuação</title>
+    <link rel="stylesheet" href="../assets/css/pontuacoes.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <a href="./dashMinigames.html">
+        <button id="botaoSair" class="botao-sair">Sair</button>
+    </a>
+
+    <div class="container">
+        <h1>Pontuação por Minigame</h1>
+        <select id="selectQuiz">
+            <option value="1">Escalação Santos 2004</option>
+            <option value="2">Escalação Santos 2011</option>
+            <option value="3">Termo do Santos</option>
+        </select>
+
+        <div class="grafico-container">
+            <canvas id="grafico"></canvas>
+        </div>
+    </div>
+
+    <script>
+        const usuarioId = sessionStorage.ID_USUARIO;
+        const ctx = document.getElementById("grafico").getContext("2d");
+        let chart;
+
+        function carregarGrafico(minigameId) {
+            fetch(`/minigames/pontuacoes/${usuarioId}/${minigameId}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.length === 0) {
+                        alert(`O usuário de ID ${usuarioId} não possui registros nesse quiz.`);
+                        if (chart) chart.destroy(); 
+                        return;
+                    }
+
+                    const labels = data.map((_, index) => `Tentativa ${index + 1}`);
+                    const pontuacoes = data.map(item => item.pontuacao);
+                    const erros = data.map(item => item.erros);
+
+                    if (chart) chart.destroy();
+                    chart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: 'Pontuação',
+                                    data: pontuacoes,
+                                    backgroundColor: 'rgba(0, 255, 0, 0.2)', 
+                                    borderColor: '#00d704', 
+                                    borderWidth: 2
+                                },
+                                {
+                                    label: 'Erros',
+                                    data: erros,
+                                    backgroundColor: 'rgba(255, 0, 0, 0.4)', 
+                                    borderColor: 'red', 
+                                    borderWidth: 2
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                x: {
+                                    ticks: {
+                                        color: 'white' 
+                                    },
+                                    grid: {
+                                        color: 'rgba(255, 255, 255, 0.2)' 
+                                    }
+                                },
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        color: 'white' 
+                                    },
+                                    grid: {
+                                        color: 'rgba(255, 255, 255, 0.2)' 
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    labels: {
+                                        color: 'white' 
+                                    }
+                                }
+                            }
+                        }
+                    });
+                });
+        }
+
+        selectQuiz.addEventListener("change", (e) => {
+            carregarGrafico(e.target.value);
+        });
+
+        window.onload = () => {
+            carregarGrafico(selectQuiz.value);
+        };
+    </script>
+</body>
+
+</html>

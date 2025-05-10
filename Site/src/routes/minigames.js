@@ -3,8 +3,17 @@ var router = express.Router();
 
 var minigamesController = require("../controllers/minigamesController");
 
-router.post("/pontuacaoEscalacao2011", function (req, res) {
-    minigamesController.pontuacaoEscalacao2011(req, res);
+router.post("/inserirPontuacao", function (req, res) {
+    minigamesController.inserirPontuacao(req, res);
 })
+
+router.get("/pontuacoes/:idUsuario/:idMinigame", function (req, res) {
+    minigamesController.listarPontuacoes(req, res);
+});
+
+router.get("/jogadores-favoritos", function (req, res) {
+    minigamesController.jogadoresFavoritos(req, res);
+});
+
 
 module.exports = router;
