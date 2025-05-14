@@ -7,9 +7,10 @@
   <title>Dashboard | Universo Santista</title>
   <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/css/dash.css" />
+  <script src="../js/sessao.js"></script>
 </head>
 
-<body>
+<body onload="validarSessao()">
   <div class="dashboard-container">
 
     <div class="sidebar">
@@ -28,8 +29,8 @@
         </a>
         <button class="btn">Histórico</button>
       </div>
-      <a href="../index.html" style="text-decoration: none;">
-        <button class="btnSair">Sair</button>
+      <a href="../cadastro.html" style="text-decoration: none;">
+        <button class="btnSair" onclick="limparSessao()">Sair</button>
       </a>
     </div>
 
@@ -70,7 +71,3 @@
 </body>
 
 </html>
-
-<script>
-  b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-</script>
