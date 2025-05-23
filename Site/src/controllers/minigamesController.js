@@ -56,10 +56,20 @@ function jogadoresFavoritos(req, res) {
         });
 }
 
+function ranking(req, res) {
+    const idMinigame = req.params.idMinigame;
+    minigameModel.rankingMinigame(idMinigame)
+        .then(result => res.json(result))
+        .catch(erro => {
+            console.error("Erro ao buscar ranking:", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
 
 
 module.exports = {
     inserirPontuacao,
     listarPontuacoes,
-    jogadoresFavoritos
+    jogadoresFavoritos,
+    ranking
 }

@@ -15,5 +15,8 @@ router.get("/jogadores-favoritos", function (req, res) {
     minigamesController.jogadoresFavoritos(req, res);
 });
 
+router.get("/ranking/:idMinigame", function (req, res) {
+    minigamesController.ranking(req, res);
+});
 
 module.exports = router;

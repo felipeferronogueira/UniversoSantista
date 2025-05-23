@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking Universo Santista</title>
+    <link rel="stylesheet" href="../assets/css/ranking.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <a href="./dashHome.html">
+            <button id="botaoSair" class="botao-sair">Sair</button>
+        </a>
+
+        <h1>Ranking Top 3 - Universo Santista</h1>
+
+        <label for="minigameSelect">Escolha o Minigame:</label>
+        <select id="minigameSelect">
+            <option value="1" selected>Escalação Santos 2004</option>
+            <option value="2">Escalação Santos 2011</option>
+            <option value="3">Termo do Santos FC</option>
+        </select>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Posição</th>
+                    <th>Jogador</th>
+                    <th>Pontuação</th>
+                    <th>Erros</th>
+                </tr>
+            </thead>
+            <tbody id="rankingBody"></tbody>
+        </table>
+    </div>
+
+    <script>
+        function buscarRanking() {
+            const minigameId = document.getElementById("minigameSelect").value;
+
+            fetch(`/minigames/ranking/${minigameId}`)
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error('Erro ao buscar ranking');
+                    }
+                    return res.json();
+                })
+                .then(data => {
+                    const rankingBody = document.getElementById("rankingBody");
+                    rankingBody.innerHTML = '';
+
+                    if (data.length === 0) {
+                        rankingBody.innerHTML = `<tr><td colspan="4">Nenhuma pontuação encontrada.</td></tr>`;
+                        return;
+                    }
+
+                    data.forEach((item, index) => {
+                        rankingBody.innerHTML += `
+                            <tr>
+                                <td>${index + 1}º</td>
+                                <td>${item.nome}</td>
+                                <td>${item.pontuacao}</td>
+                                <td>${item.erros}</td>
+                            </tr>
+                        `;
+                    });
+                })
+                .catch(erro => {
+                    console.error(erro);
+                    const rankingBody = document.getElementById("rankingBody");
+                    rankingBody.innerHTML = `<tr><td colspan="4">Erro ao carregar ranking.</td></tr>`;
+                });
+        }
+
+        minigameSelect.addEventListener("change", (e) => {
+            buscarRanking(e.target.value);
+        });
+
+        window.onload = () => {
+            buscarRanking(minigameSelect.value);
+        };
+    </script>
+
+</body>
+
+</html>

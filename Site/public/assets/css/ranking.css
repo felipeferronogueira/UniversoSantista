@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700&display=swap');
+
+body {
+    background-image: url('../imgs/FlK-Er2WIAU3TBW.jpg_large');
+    background-size: cover;
+    font-family: 'Epilogue';
+    text-align: center;
+    padding: 20px;
+}
+
+.botao-sair {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Epilogue';
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.botao-sair:hover {
+    background-color: #c82333;
+}
+
+h1 {
+    color: white;
+    margin-top: 20vh;
+}
+
+label {
+    color: white;
+}
+
+select,
+button {
+    padding: 10px;
+    margin: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+table {
+    margin: 0 auto;
+    margin-top: 10px;
+    border-collapse: collapse;
+    width: 60%;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: rgb(56, 56, 56);
+    color: white;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}

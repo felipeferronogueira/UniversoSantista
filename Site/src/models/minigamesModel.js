@@ -31,9 +31,22 @@ function jogadoresFavoritos() {
     return database.executar(instrucaoSql);
 }
 
+function rankingMinigame(idMinigame) {
+    const instrucaoSql = `
+        SELECT u.nome, p.pontuacao, p.erros
+        FROM pontuacao p
+        JOIN usuario u ON p.fkUsuario = u.idUsuario
+        WHERE p.fkMinigame = ${idMinigame}
+        ORDER BY p.pontuacao DESC, p.erros ASC
+        LIMIT 3;
+    `;
+    return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
     inserirPontuacao,
     listarPontuacoes,
-    jogadoresFavoritos
+    jogadoresFavoritos,
+    rankingMinigame
 };
