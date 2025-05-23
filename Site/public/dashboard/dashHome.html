@@ -2,72 +2,159 @@
 <html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard | Universo Santista</title>
-  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../assets/css/dash.css" />
-  <script src="../js/sessao.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | Universo Santista</title>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/home.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body onload="validarSessao()">
-  <div class="dashboard-container">
+<body onload="buscarPontuacaoGeral()">
+    <div class="dashboard-container">
 
-    <div class="sidebar">
-      <img src="../assets/imgs/Santos_logo.svg.png" alt="Logo Santos" class="logo" />
-       <h3 class="usuario">Olá, <span id="b_usuario">usuário</span>!</h3>
+        <div class="sidebar">
+            <img src="../assets/imgs/Santos_logo.svg.png" alt="Logo Santos" class="logo" />
+            <h3 class="usuario">Olá, <span id="b_usuario">usuário</span>!</h3>
 
-      <div class="sidebar-btns">
-        <a href="dashHistoria.html" style="text-decoration: none;">
-          <button class="btn">História</button>
-        </a>
-        <a href="dashHome.html" style="text-decoration: none;">
-          <button class="btn">Dashboard</button>
-        </a>
-        <a href="dashMinigames.html" style="text-decoration: none;">
-          <button class="btn">Mini Games</button>
-        </a>
-        <button class="btn">Histórico</button>
-      </div>
-      <a href="../cadastro.html" style="text-decoration: none;">
-        <button class="btnSair" onclick="limparSessao()">Sair</button>
-      </a>
+            <div class="sidebar-btns">
+                <a href="dashHome.html" style="text-decoration: none;">
+                    <button class="btn">Home</button>
+                </a>
+                <a href="dashboard.html" style="text-decoration: none;">
+                    <button class="btn">Dashboard</button>
+                </a>
+                <a href="dashMinigames.html" style="text-decoration: none;">
+                    <button class="btn">Mini Games</button>
+                </a>
+                <a href="dashHistoria.html" style="text-decoration: none;">
+                    <button class="btn">Historia</button>
+                </a>
+            </div>
+            <a href="../index.html" style="text-decoration: none;">
+                <button class="btnSair">Sair</button>
+            </a>
+        </div>
+
+        <div class="main-content">
+            <div class="background-image"></div>
+
+            <div class="container">
+                <div class="filtro">
+                    <h3>Pontuação Máxima dos Usuários</h3>
+    
+                    <select id="select_minigame">
+                        <option value="1" selected>Escalação Santos 2004</option>
+                        <option value="2">Escalação Santos 2011</option>
+                        <option value="3">Termo do Santos</option>
+                    </select>
+                </div>
+                <div class="grafico-container">
+                    <canvas id="grafico"></canvas>
+                </div>
+            </div>
+
+            <div class="kpis"> 
+                <div class="kpi">
+                    <h3>Média das Pontuações</h3>
+                    <div class="resultado" id="resultadoMedia"></div>
+                </div>
+                <div class="kpi">
+                    <h3>Jogador Favorito</h3>
+                    <div class="resultado" id="resultadoJogador"></div>
+                </div>
+            </div>
+
+        </div>
     </div>
-
-    <div class="main-content">
-      <div class="background-image"></div>
-
-      <div class="cards-container">
-        <a href="pontuacoes.html">
-          <div class="card">
-            <div class="card-image">
-              <img src="../assets/imgs/torcida.jpg" alt="" />
-              <div class="card-text">Pontuações</div>
-            </div>
-          </div>
-        </a>
-
-        <a href="favoritos.html">
-          <div class="card">
-            <div class="card-image">
-              <img src="../assets/imgs/bandeira.jpg" alt="" />
-              <div class="card-text">Jogadores Favoritos</div>
-            </div>
-          </div>
-        </a>
-
-        <a href="ranking.html">
-          <div class="card">
-            <div class="card-image">
-              <img src="../assets/imgs/belmiro.jpg" alt="" />
-              <div class="card-text">Ranking Geral</div>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-
-  </div>
 </body>
 
 </html>
+
+<script>
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    const ctx = document.getElementById("grafico").getContext("2d");
+    let chart;
+
+    function buscarPontuacaoGeral() {
+
+        let minigameId = select_minigame.value;
+
+        fetch(`/minigames/buscarMedia/${minigameId}`)
+        .then(res => res.json())
+        .then(data => {        
+            resultadoMedia.innerHTML = `${data[0].mediaGeral}`
+        });
+
+        fetch(`/minigames/buscarJogador`)
+        .then(res => res.json())
+        .then(data => {        
+            resultadoJogador.innerHTML = `Jogador: ${data[0].jogador} | Usuários: ${data[0].total} `
+        });
+
+        fetch(`/minigames/buscarGeral/${minigameId}`)
+            .then(res => res.json())
+            .then(data => {
+
+                const pontuacao = data.map(item => item.pontuacaoGeral);
+                const nomes = data.map(item => item.nome);
+
+                if (chart) chart.destroy();
+
+                chart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: nomes,
+                        datasets: [
+                            {
+                                label: 'Pontuação',
+                                data: pontuacao,
+                                backgroundColor: 'rgba(0, 255, 0, 0.2)',
+                                borderColor: '#00d704',
+                                borderWidth: 2
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        width: 500,
+                        height: 400,
+                        scales: {
+                            x: {
+                                ticks: {
+                                    color: 'white'
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.2)'
+                                }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    color: 'white'
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.2)'
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: 'white'
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+    }
+
+    select_minigame.addEventListener("change", (e) => {
+        buscarPontuacaoGeral(e.target.value);
+    });
+
+    window.onload = () => {
+        buscarPontuacaoGeral(select_minigame.value);
+    };
+</script>

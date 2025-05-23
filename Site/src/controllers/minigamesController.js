@@ -66,10 +66,43 @@ function ranking(req, res) {
         });
 }
 
+function buscarGeral(req, res) {
+    const idMinigame = req.params.idMinigame;
+
+    minigameModel.buscarGeral(idMinigame)
+        .then(result => res.json(result))
+        .catch(erro => {
+            console.error("Erro ao buscar pontuações:", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function buscarMedia(req, res) {
+    const idMinigame = req.params.idMinigame;
+
+    minigameModel.buscarMedia(idMinigame)
+        .then(result => res.json(result))
+        .catch(erro => {
+            console.error("Erro ao buscar pontuações:", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function buscarJogador(req, res) {
+    minigameModel.buscarJogador()
+        .then(result => res.json(result))
+        .catch(erro => {
+            console.error("Erro ao buscar pontuações:", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
 
 module.exports = {
     inserirPontuacao,
     listarPontuacoes,
     jogadoresFavoritos,
-    ranking
+    ranking,
+    buscarGeral,
+    buscarMedia,
+    buscarJogador
 }

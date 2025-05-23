@@ -17,7 +17,7 @@
 
     <div class="container">
         <h1>Pontuação por Minigame</h1>
-        <select id="selectQuiz">
+        <select id="selectMinigame">
             <option value="1">Escalação Santos 2004</option>
             <option value="2">Escalação Santos 2011</option>
             <option value="3">Termo do Santos</option>
@@ -102,12 +102,12 @@
                 });
         }
 
-        selectQuiz.addEventListener("change", (e) => {
+        selectMinigame.addEventListener("change", (e) => {
             carregarGrafico(e.target.value);
         });
 
         window.onload = () => {
-            carregarGrafico(selectQuiz.value);
+            carregarGrafico(selectMinigame.value);
         };
     </script>
 </body>

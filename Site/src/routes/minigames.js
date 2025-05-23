@@ -19,4 +19,17 @@ router.get("/ranking/:idMinigame", function (req, res) {
     minigamesController.ranking(req, res);
 });
 
+router.get("/buscarGeral/:idMinigame", function (req, res) {
+    minigamesController.buscarGeral(req, res);
+});
+
+router.get("/buscarMedia/:idMinigame", function (req, res) {
+    minigamesController.buscarMedia(req, res);
+});
+
+router.get("/buscarJogador", function (req, res) {
+    minigamesController.buscarJogador(req, res);
+});
+
+
 module.exports = router;

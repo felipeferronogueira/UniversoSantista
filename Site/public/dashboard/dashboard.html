@@ -7,9 +7,10 @@
   <title>Dashboard | Universo Santista</title>
   <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/css/dash.css" />
+  <script src="../js/sessao.js"></script>
 </head>
 
-<body>
+<body onload="validarSessao()">
   <div class="dashboard-container">
 
     <div class="sidebar">
@@ -30,8 +31,8 @@
           <button class="btn">Historia</button>
         </a>
       </div>
-      <a href="../index.html" style="text-decoration: none;">
-        <button class="btnSair">Sair</button>
+      <a href="../cadastro.html" style="text-decoration: none;">
+        <button class="btnSair" onclick="limparSessao()">Sair</button>
       </a>
     </div>
 
@@ -39,34 +40,36 @@
       <div class="background-image"></div>
 
       <div class="cards-container">
-        <div class="card" onclick="window.location.href='./minigameEscalacao2004.html'">
-          <div class="card-image">
-            <img src="../assets/imgs/neymarpretobranco.jpg" alt="MiniGame Escalação 2004" />
-            <div class="card-text">Escalação 2004</div>
+        <a href="pontuacoes.html">
+          <div class="card">
+            <div class="card-image">
+              <img src="../assets/imgs/torcida.jpg" alt="" />
+              <div class="card-text">Pontuações</div>
+            </div>
           </div>
-        </div>
+        </a>
 
-        <div class="card" onclick="window.location.href='./miniGameEscalacao2011.html'">
-          <div class="card-image">
-            <img src="../assets/imgs/manobrown.jpg" alt="MiniGame Escalação 2011" />
-            <div class="card-text">Escalação 2011</div>
+        <a href="favoritos.html">
+          <div class="card">
+            <div class="card-image">
+              <img src="../assets/imgs/bandeira.jpg" alt="" />
+              <div class="card-text">Jogadores Favoritos</div>
+            </div>
           </div>
-        </div>
+        </a>
 
-        <div class="card" onclick="window.location.href='./termoSantos.html'">
-          <div class="card-image">
-            <img src="../assets/imgs/nascerviver.jpg" alt="Jogo de Termo" />
-            <div class="card-text">Termo do Santos</div>
+        <a href="ranking.html">
+          <div class="card">
+            <div class="card-image">
+              <img src="../assets/imgs/belmiro.jpg" alt="" />
+              <div class="card-text">Ranking Geral</div>
+            </div>
           </div>
-        </div>
+        </a>
       </div>
-
     </div>
+
   </div>
 </body>
 
 </html>
-
-<script>
-  b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-</script>

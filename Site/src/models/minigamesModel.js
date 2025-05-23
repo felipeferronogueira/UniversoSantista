@@ -43,10 +43,50 @@ function rankingMinigame(idMinigame) {
     return database.executar(instrucaoSql);
 }
 
+function buscarGeral(idMinigame) {
+    const instrucaoSql = `
+        SELECT u.nome as nome, MAX(p.pontuacao) as pontuacaoGeral
+        FROM pontuacao p
+        JOIN usuario u ON p.fkUsuario = u.idUsuario
+        WHERE p.fkMinigame = ${idMinigame}
+        GROUP BY u.nome;
+    `;
+    console.log("Executando SQL: " + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarMedia(idMinigame) {
+    const instrucaoSql = `
+        SELECT ROUND(AVG(pontuacao),1) AS mediaGeral
+        FROM pontuacao
+        WHERE fkMinigame = ${idMinigame};
+    `;
+    console.log("Executando SQL: " + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarJogador() {
+    const instrucaoSql = `
+        SELECT 
+            jf.nome AS jogador, 
+            COUNT(u.idUsuario) AS total
+        FROM 
+            usuario u
+        JOIN jogadorFavorito jf ON u.fkJogador = jf.idJogador
+        GROUP BY jf.nome
+        ORDER BY total DESC
+        LIMIT 1;
+    `;
+    console.log("Executando SQL: " + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 module.exports = {
     inserirPontuacao,
     listarPontuacoes,
     jogadoresFavoritos,
-    rankingMinigame
+    rankingMinigame,
+    buscarGeral,
+    buscarMedia,
+    buscarJogador
 };
