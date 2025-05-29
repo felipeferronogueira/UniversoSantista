@@ -33,7 +33,7 @@ function jogadoresFavoritos() {
 
 function rankingMinigame(idMinigame) {
     const instrucaoSql = `
-        SELECT u.nome, p.pontuacao, p.erros
+        SELECT DISTINCT(u.nome), p.pontuacao, p.erros
         FROM pontuacao p
         JOIN usuario u ON p.fkUsuario = u.idUsuario
         WHERE p.fkMinigame = ${idMinigame}
