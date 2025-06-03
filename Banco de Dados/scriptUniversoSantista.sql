@@ -40,6 +40,7 @@ create table pontuacao (
   idPontuacao int primary key auto_increment,
   pontuacao int,
   erros int,
+  dtPontuacao datetime default current_timestamp,
   fkUsuario int,
   fkMinigame int,
   foreign key (fkUsuario) references usuario(idUsuario),
